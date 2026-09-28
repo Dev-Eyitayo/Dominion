@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dominion Integrated Electrical & Engineering Ltd | Building Excellence, Powering the Future</title>
+  <meta name="description" content="Multidisciplinary engineering leader in Nigeria (RC: 1655029). Delivering precision civil construction, high-voltage electrical installations, solar IT solutions, and industrial precast concrete manufacturing.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            dominion: {
+              navy: '#070D1F',
+              darkSurface: '#0B1736',
+              blue: '#0F2B82',
+              blueHover: '#153bb5',
+              gold: '#D99B26',
+              goldLight: '#F5B041',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Geometric Architectural Clip Paths */
+    .badge-chamfer {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+    }
+    .img-chamfer-bl {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 56px 100%, 0 calc(100% - 56px));
+    }
+    .img-chamfer-br {
+      clip-path: polygon(0 0, 100% 0, calc(100% - 56px) 100%, 0 100%);
+    }
+    .img-chamfer-tl {
+      clip-path: polygon(56px 0, 100% 0, 100% 100%, 0 100%, 0 56px);
+    }
+    .bg-tech-grid {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    }
+    .bg-tech-grid-light {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(15, 43, 130, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 43, 130, 0.04) 1px, transparent 1px);
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070D1F;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0F2B82;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #D99B26;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased selection:bg-[#0F2B82] selection:text-white">
+
+  <!-- ==================== HEADER ==================== -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#070D1F]/90 backdrop-blur-md py-4 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3">
+          <div class="bg-white px-3 py-1.5 rounded-lg shadow-sm border border-white/20">
+            <img src="./public/logo.png" alt="Dominion Integrated Electrical & Engineering Limited" class="h-9 w-auto object-contain">
+          </div>
+        </a>
+
+        <!-- Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-7">
+          <a href="#about" class="text-sm font-medium text-slate-200 hover:text-[#D99B26] transition-colors">About Us</a>
+          <a href="#services" class="text-sm font-medium text-slate-200 hover:text-[#D99B26] transition-colors">Core Services</a>
+          <a href="#precast" class="text-sm font-medium text-slate-200 hover:text-[#D99B26] transition-colors">Precast Concrete</a>
+          <a href="#process" class="text-sm font-medium text-slate-200 hover:text-[#D99B26] transition-colors">Process</a>
+          <a href="#projects" class="text-sm font-medium text-slate-200 hover:text-[#D99B26] transition-colors">Projects</a>
+          <a href="#why-us" class="text-sm font-medium text-slate-200 hover:text-[#D99B26] transition-colors">Why Dominion</a>
+          <a href="#contact" class="text-sm font-medium text-slate-200 hover:text-[#D99B26] transition-colors">Contact</a>
+        </nav>
+
+        <!-- Right Header Action -->
+        <div class="hidden md:flex items-center gap-5">
+          <a href="tel:08101831076" class="flex items-center gap-2 text-xs font-semibold text-slate-200 hover:text-[#D99B26] transition-colors">
+            <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-[#D99B26]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            </div>
+            <div class="text-left leading-tight">
+              <span class="block text-[10px] text-slate-400 uppercase tracking-wider font-mono">Direct Line</span>
+              <span>(081) 0183-1076</span>
+            </div>
+          </a>
+
+          <a href="#consultation" class="bg-[#0F2B82] hover:bg-[#153bb5] text-white text-xs uppercase tracking-wider font-bold py-3 px-5 rounded-full border border-blue-400/30 shadow-lg shadow-blue-900/30 transition-all flex items-center gap-2">
+            <span>Get Free Consultation</span>
+            <span class="text-[#D99B26]">↗</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg bg-white/10 text-white hover:bg-white/20">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileDrawer" class="hidden lg:hidden bg-[#070D1F] border-b border-white/10 px-6 py-6 mt-3 shadow-2xl">
+      <div class="flex flex-col gap-4">
+        <a href="#about" class="text-slate-200 hover:text-[#D99B26] py-1 border-b border-white/5">About Us</a>
+        <a href="#services" class="text-slate-200 hover:text-[#D99B26] py-1 border-b border-white/5">Core Services</a>
+        <a href="#precast" class="text-slate-200 hover:text-[#D99B26] py-1 border-b border-white/5">Precast Concrete</a>
+        <a href="#process" class="text-slate-200 hover:text-[#D99B26] py-1 border-b border-white/5">Process</a>
+        <a href="#projects" class="text-slate-200 hover:text-[#D99B26] py-1 border-b border-white/5">Projects</a>
+        <a href="#why-us" class="text-slate-200 hover:text-[#D99B26] py-1 border-b border-white/5">Why Dominion</a>
+        <a href="#contact" class="text-slate-200 hover:text-[#D99B26] py-1 border-b border-white/5">Contact</a>
+        <a href="#consultation" class="text-center bg-[#0F2B82] text-white font-bold py-3 px-4 rounded-full mt-2 uppercase text-xs">Get Free Consultation</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="relative min-h-screen flex items-center justify-center pt-28 pb-20 overflow-hidden bg-[#070D1F]">
+    <div class="absolute inset-0 z-0">
+      <img src="./public/images/hero-construction.jpg" alt="Dominion Construction Site" class="w-full h-full object-cover opacity-30">
+      <div class="absolute inset-0 bg-gradient-to-r from-[#070D1F] via-[#070D1F]/85 to-[#070D1F]/70"></div>
+      <div class="absolute inset-0 bg-tech-grid opacity-30 pointer-events-none"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div class="max-w-3xl">
+        <!-- RC Badge -->
+        <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-mono text-slate-200 backdrop-blur-md mb-6">
+          <span class="w-2 h-2 rounded-full bg-[#D99B26] animate-pulse"></span>
+          <span class="font-semibold text-white">RC: 1655029</span>
+          <span class="text-white/40">|</span>
+          <span class="text-slate-300">EST. FEBRUARY 4, 2020</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12] mb-6">
+          Building Excellence, <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-[#D99B26]">
+            Powering the Future.
+          </span>
+        </h1>
+
+        <p class="text-base sm:text-lg lg:text-xl text-slate-300 font-normal leading-relaxed mb-10 max-w-2xl">
+          A premier multidisciplinary engineering powerhouse delivering world-class civil construction, high-voltage electrical installations, solar IT solutions, and industrial-grade precast concrete production.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-12">
+          <a href="#consultation" class="inline-flex items-center justify-center gap-3 bg-[#0F2B82] hover:bg-[#153bb5] text-white text-sm font-bold uppercase tracking-wider px-8 py-4 rounded-full shadow-xl shadow-blue-900/50 border border-blue-400/40 transition-all">
+            <span>Get Free Consultation</span>
+            <span class="text-[#D99B26]">→</span>
+          </a>
+
+          <a href="#precast" class="inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/15 text-white hover:text-[#D99B26] text-sm font-bold uppercase tracking-wider px-7 py-4 rounded-full backdrop-blur-md border border-white/20 transition-all">
+            <span>⚡ Explore Precast Products</span>
+          </a>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-3 gap-4 text-slate-300 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-[#D99B26] font-bold">✔</span>
+            <span>SMEDAN Registered</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[#D99B26] font-bold">✔</span>
+            <span>FIRS Tax Clearance</span>
+          </div>
+          <div class="flex items-center gap-2 col-span-2 sm:col-span-1">
+            <span class="text-[#D99B26] font-bold">✔</span>
+            <span>Strict QA/QC & HSE Policy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FLOATING STATS BAR ==================== -->
+  <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 lg:-mt-14">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200/80 p-6 sm:p-8 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0F2B82] shrink-0 font-bold text-lg">📅</div>
+        <div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono">2020</div>
+          <div class="text-xs sm:text-sm font-bold text-slate-700">Year Incorporated</div>
+          <div class="text-[11px] text-slate-400 font-medium">RC: 1655029</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4 pt-4 sm:pt-0 sm:pl-6 lg:pl-8">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0F2B82] shrink-0 font-bold text-lg">🏗️</div>
+        <div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono">10,000+</div>
+          <div class="text-xs sm:text-sm font-bold text-slate-700">Precast Units</div>
+          <div class="text-[11px] text-slate-400 font-medium">LT/HT Poles & Slabs</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4 pt-4 sm:pt-0 sm:pl-6 lg:pl-8">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0F2B82] shrink-0 font-bold text-lg">⚡</div>
+        <div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono">6+</div>
+          <div class="text-xs sm:text-sm font-bold text-slate-700">Core Disciplines</div>
+          <div class="text-[11px] text-slate-400 font-medium">Civil, Electrical, Solar</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4 pt-4 sm:pt-0 sm:pl-6 lg:pl-8">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0F2B82] shrink-0 font-bold text-lg">🛡️</div>
+        <div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono">100%</div>
+          <div class="text-xs sm:text-sm font-bold text-slate-700">Regulatory Compliant</div>
+          <div class="text-[11px] text-slate-400 font-medium">FIRS & SMEDAN Aligned</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ABOUT US SECTION ==================== -->
+  <section id="about" class="py-24 bg-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-tech-grid-light opacity-60 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="mb-12">
+        <div class="inline-block bg-[#0F2B82] text-white font-mono text-xs uppercase tracking-widest px-6 py-2.5 font-bold badge-chamfer shadow-md">
+          ABOUT US
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <!-- Left Column: Chamfered Image -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative mx-auto max-w-md lg:max-w-none">
+            <div class="absolute -inset-3 bg-[#D99B26]/20 rounded-2xl transform -rotate-1 img-chamfer-bl"></div>
+            <div class="relative h-[480px] sm:h-[560px] w-full overflow-hidden shadow-2xl bg-slate-900 img-chamfer-bl border-4 border-white">
+              <img src="./public/images/team/team-engineers.jpg" alt="Dominion Engineers" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#070D1F]/90 via-transparent to-transparent"></div>
+              <div class="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-white/95 backdrop-blur-md shadow-lg border border-slate-200">
+                <div class="text-xs font-mono font-bold text-slate-900">CERTIFIED ENGINEERS & SITE MANAGERS</div>
+                <div class="text-[11px] text-slate-500">COREN Aligned • HSE Compliant</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Story & Values -->
+        <div class="lg:col-span-7">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+            Delivering Quality Engineering, Infrastructure & Power Solutions Across Nigeria.
+          </h2>
+
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-6">
+            <strong class="text-slate-900 font-semibold">Dominion Integrated Electrical & Engineering Limited</strong> (RC: 1655029) was incorporated on the 4th of February 2020. As a multidisciplinary engineering and infrastructure development firm, we execute end-to-end solutions across civil engineering, building construction, electrical power engineering, renewable energy, and precision concrete & precast manufacturing.
+          </p>
+
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-8">
+            Our commitment to quality, professionalism, innovation, and client satisfaction has positioned us as a reliable partner for public sector tenders and private sector developments.
+          </p>
+
+          <!-- Vision / Mission -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            <div class="p-5 rounded-xl bg-slate-50 border border-slate-200/80">
+              <div class="text-[#0F2B82] font-bold text-sm uppercase tracking-wider mb-2 font-mono">✨ Our Vision</div>
+              <p class="text-xs sm:text-sm text-slate-600 leading-normal">
+                To become one of Nigeria's foremost engineering and infrastructure development corporations recognized for excellence, innovation, and sustainable solutions.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-xl bg-slate-50 border border-slate-200/80">
+              <div class="text-[#0F2B82] font-bold text-sm uppercase tracking-wider mb-2 font-mono">🛡️ Our Mission</div>
+              <p class="text-xs sm:text-sm text-slate-600 leading-normal">
+                To deliver top-tier engineering, construction, electrical, renewable energy, and precast services that consistently exceed expectations while upholding safety, integrity, and professionalism.
+              </p>
+            </div>
+          </div>
+
+          <!-- Core Values -->
+          <div class="mb-8">
+            <h3 class="text-xs uppercase font-mono tracking-widest text-slate-400 font-bold mb-3">// CORE VALUES</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs sm:text-sm font-semibold text-slate-800">
+              <div><span class="text-[#D99B26]">✔</span> Integrity & Safety</div>
+              <div><span class="text-[#D99B26]">✔</span> Engineering Excellence</div>
+              <div><span class="text-[#D99B26]">✔</span> Technological Innovation</div>
+              <div><span class="text-[#D99B26]">✔</span> Strict QA/QC</div>
+              <div><span class="text-[#D99B26]">✔</span> Sustainability</div>
+              <div><span class="text-[#D99B26]">✔</span> Client Satisfaction</div>
+            </div>
+          </div>
+
+          <a href="#consultation" class="inline-flex items-center gap-3 bg-[#0F2B82] hover:bg-[#153bb5] text-white text-xs uppercase font-bold tracking-wider px-7 py-3.5 rounded-full shadow-lg shadow-blue-900/30 transition-all">
+            <span>Get Free Consultation</span>
+            <span class="text-[#D99B26]">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CORE SERVICES (DARK ZIG-ZAG) ==================== -->
+  <section id="services" class="py-24 bg-[#070D1F] text-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-tech-grid opacity-20 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="mb-16">
+        <div class="inline-block bg-[#0F2B82] text-white font-mono text-xs uppercase tracking-widest px-6 py-2.5 font-bold badge-chamfer border border-blue-400/30 shadow-lg">
+          SERVICES
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mt-4 tracking-tight max-w-2xl">
+          Integrated Engineering Across the Project Lifecycle.
+        </h2>
+      </div>
+
+      <div class="space-y-24 lg:space-y-32">
+        <!-- Service 1: Civil -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          <div class="lg:col-span-6 relative">
+            <div class="relative h-[340px] sm:h-[420px] w-full overflow-hidden bg-slate-800 img-chamfer-bl border-2 border-white/10 shadow-2xl">
+              <img src="./public/images/services/building-construction.jpg" alt="Civil Construction" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+            </div>
+          </div>
+          <div class="lg:col-span-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#D99B26] mb-4">
+              01. INFRASTRUCTURE & STRUCTURES
+            </div>
+            <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-4">
+              Construction & Civil Engineering Services
+            </h3>
+            <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
+              Comprehensive structural engineering and civil construction solutions ranging from high-load foundations, multi-storey commercial complexes, and residential estates to arterial drainage and road networks.
+            </p>
+            <div class="space-y-2 text-xs sm:text-sm text-slate-200 mb-8">
+              <div>✔ Commercial & Residential Building Construction</div>
+              <div>✔ Substructure, Raft & Deep Foundations</div>
+              <div>✔ Drainage Channels & Stormwater Systems</div>
+              <div>✔ Structural Rehabilitation & Renovation</div>
+            </div>
+            <a href="#consultation" class="inline-flex items-center gap-3 bg-[#0F2B82] hover:bg-[#153bb5] text-white text-xs uppercase font-bold tracking-wider px-6 py-3.5 rounded-full border border-blue-400/30">
+              <span>Get Free Consultation</span>
+              <span class="text-[#D99B26]">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Service 2: Electrical -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          <div class="lg:col-span-6 lg:order-2 relative">
+            <div class="relative h-[340px] sm:h-[420px] w-full overflow-hidden bg-slate-800 img-chamfer-br border-2 border-white/10 shadow-2xl">
+              <img src="./public/images/services/electrical-work.jpg" alt="Electrical Engineering" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+            </div>
+          </div>
+          <div class="lg:col-span-6 lg:order-1">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#D99B26] mb-4">
+              02. POWER & DISTRIBUTION
+            </div>
+            <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-4">
+              Electrical Engineering Services
+            </h3>
+            <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
+              End-to-end industrial, commercial, and domestic electrical engineering. We specialize in high and low-voltage installations, rural electrification schemes, substation design, switchgear installation, and precision load balancing.
+            </p>
+            <div class="space-y-2 text-xs sm:text-sm text-slate-200 mb-8">
+              <div>✔ High Voltage (HT) & Low Voltage (LT) Grid Installations</div>
+              <div>✔ Industrial Wiring, Cable Laying & Conduit Systems</div>
+              <div>✔ Substation Transformer Installation & Commissioning</div>
+              <div>✔ Electrical Safety Audits & Maintenance</div>
+            </div>
+            <a href="#consultation" class="inline-flex items-center gap-3 bg-[#0F2B82] hover:bg-[#153bb5] text-white text-xs uppercase font-bold tracking-wider px-6 py-3.5 rounded-full border border-blue-400/30">
+              <span>Get Free Consultation</span>
+              <span class="text-[#D99B26]">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Service 3: Solar & IT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          <div class="lg:col-span-6 relative">
+            <div class="relative h-[340px] sm:h-[420px] w-full overflow-hidden bg-slate-800 img-chamfer-bl border-2 border-white/10 shadow-2xl">
+              <img src="./public/images/services/solar-installation.jpg" alt="Solar Energy Solutions" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+            </div>
+          </div>
+          <div class="lg:col-span-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#D99B26] mb-4">
+              03. RENEWABLE ENERGY & IT
+            </div>
+            <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-4">
+              Power & Solar Energy IT Solutions
+            </h3>
+            <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
+              Turnkey clean energy systems built to power commercial facilities, communities, and institutional campuses. Combining high-efficiency solar photovoltaic arrays, intelligent lithium battery storage, and smart IT monitoring.
+            </p>
+            <div class="space-y-2 text-xs sm:text-sm text-slate-200 mb-8">
+              <div>✔ Solar Mini-Grids & Commercial Hybrid Inverter Systems</div>
+              <div>✔ Solar Street Lighting & Highway Electrification</div>
+              <div>✔ Energy Audits, Storage Optimization & Remote Telemetry</div>
+              <div>✔ Power Backup Automation & Micro-grid IT Control</div>
+            </div>
+            <a href="#consultation" class="inline-flex items-center gap-3 bg-[#0F2B82] hover:bg-[#153bb5] text-white text-xs uppercase font-bold tracking-wider px-6 py-3.5 rounded-full border border-blue-400/30">
+              <span>Get Free Consultation</span>
+              <span class="text-[#D99B26]">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Service 4: Equipment Leasing -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          <div class="lg:col-span-6 lg:order-2 relative">
+            <div class="relative h-[340px] sm:h-[420px] w-full overflow-hidden bg-slate-800 img-chamfer-br border-2 border-white/10 shadow-2xl p-4 flex items-center justify-center">
+              <img src="./public/images/services/compactor-equipment.png" alt="Equipment Leasing" class="max-h-full object-contain hover:scale-105 transition-transform duration-700">
+            </div>
+          </div>
+          <div class="lg:col-span-6 lg:order-1">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#D99B26] mb-4">
+              04. PLANT & MACHINERY
+            </div>
+            <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-4">
+              Procurement & Equipment Leasing Services
+            </h3>
+            <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
+              Modern heavy construction machinery and precision tools available for short-term and long-term contractor lease, backed by certified operators and stringent routine maintenance.
+            </p>
+            <div class="space-y-2 text-xs sm:text-sm text-slate-200 mb-8">
+              <div>✔ Plate Compactors, Poker Vibrators & Mixers</div>
+              <div>✔ Earth-moving Equipment, Rollers & Cranes</div>
+              <div>✔ High-voltage Electrical Testing & Surveying Tools</div>
+              <div>✔ Direct Procurement of Certified Construction Materials</div>
+            </div>
+            <a href="#consultation" class="inline-flex items-center gap-3 bg-[#0F2B82] hover:bg-[#153bb5] text-white text-xs uppercase font-bold tracking-wider px-6 py-3.5 rounded-full border border-blue-400/30">
+              <span>Get Free Consultation</span>
+              <span class="text-[#D99B26]">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PRECAST CONCRETE SECTION ==================== -->
+  <section id="precast" class="py-24 bg-slate-50 relative overflow-hidden">
+    <div class="absolute inset-0 bg-tech-grid-light opacity-50 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <div class="inline-block bg-[#0F2B82] text-white font-mono text-xs uppercase tracking-widest px-6 py-2.5 font-bold badge-chamfer shadow-md mb-4">
+            CONCRETE & PRECAST PRODUCTION
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
+            Engineered for Durability. <br class="hidden sm:inline">
+            Manufactured with Precision.
+          </h2>
+        </div>
+        <p class="max-w-md text-slate-600 text-sm sm:text-base leading-relaxed">
+          Operating from our dedicated manufacturing plant along the Oyo–Ogbomoso Expressway, Dominion produces high-grade precast solutions meeting strict national infrastructure standards.
+        </p>
+      </div>
+
+      <!-- 4 Products Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-200/80 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col group">
+          <div class="relative h-48 w-full bg-slate-200 overflow-hidden">
+            <img src="./public/images/precast/electric-poles.jpg" alt="Concrete Electric Poles" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-base font-bold text-slate-900 group-hover:text-[#0F2B82] mb-2">Concrete Electric Poles (LT & HT)</h3>
+              <p class="text-xs text-slate-600 leading-relaxed mb-4">Vibrated high-strength reinforced concrete poles for low tension (LT) and high tension (HT) overhead electrical distribution.</p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 text-[11px] font-mono text-slate-500">
+              <strong class="text-slate-700">Specs:</strong> 8.5m, 10m, 11m & Custom Dimensions
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-200/80 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col group">
+          <div class="relative h-48 w-full bg-slate-200 overflow-hidden">
+            <img src="./public/images/precast/stay-blocks.jpg" alt="Stay Blocks" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-base font-bold text-slate-900 group-hover:text-[#0F2B82] mb-2">Precast Stay Blocks & Slabs</h3>
+              <p class="text-xs text-slate-600 leading-relaxed mb-4">Engineered foundation anchor blocks ensuring rigid structural tension support for utility poles and transmission towers.</p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 text-[11px] font-mono text-slate-500">
+              <strong class="text-slate-700">Specs:</strong> High Load Resistance Mix
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-200/80 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col group">
+          <div class="relative h-48 w-full bg-slate-200 overflow-hidden">
+            <img src="./public/images/precast/concrete-yard.jpg" alt="Road Kerbs & Slabs" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-base font-bold text-slate-900 group-hover:text-[#0F2B82] mb-2">Road Kerbs & Drainage Covers</h3>
+              <p class="text-xs text-slate-600 leading-relaxed mb-4">Precision cast kerbs, culvert slabs, and interlocking stormwater drainage covers built for highway and estate road networks.</p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 text-[11px] font-mono text-slate-500">
+              <strong class="text-slate-700">Specs:</strong> Standard & Custom Profiles
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-200/80 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col group">
+          <div class="relative h-48 w-full bg-slate-200 overflow-hidden">
+            <img src="./public/images/precast/pole-transport.jpg" alt="Custom Precasts" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-base font-bold text-slate-900 group-hover:text-[#0F2B82] mb-2">Manhole Rings & Custom Precasts</h3>
+              <p class="text-xs text-slate-600 leading-relaxed mb-4">Modular manhole access rings, covers, and tailored precast structural components fabricated to client specifications.</p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 text-[11px] font-mono text-slate-500">
+              <strong class="text-slate-700">Specs:</strong> Bespoke Batch Moulding
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Banner -->
+      <div class="rounded-2xl bg-[#0F2B82] text-white p-8 sm:p-10 shadow-xl border border-blue-400/30 flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div>
+          <div class="text-xs font-mono text-[#D99B26] font-bold uppercase tracking-wider mb-2">🏭 Production Facility & Yard</div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-white mb-2">Require Bulk Precast Poles or Custom Structural Concrete?</h3>
+          <p class="text-slate-300 text-xs sm:text-sm max-w-2xl">We handle large volume contractor orders with direct site haulage and on-schedule dispatch across Oyo State and South-West Nigeria.</p>
+        </div>
+        <a href="#consultation" class="shrink-0 inline-flex items-center gap-3 bg-[#D99B26] hover:bg-[#c48719] text-slate-950 font-bold uppercase text-xs tracking-wider px-8 py-4 rounded-full shadow-lg transition-all hover:scale-105">
+          <span>Request Precast Quotation</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== WHY CHOOSE DOMINION ==================== -->
+  <section id="why-us" class="py-20 bg-slate-100 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 p-8 sm:p-12 lg:p-16 relative overflow-hidden">
+        <div class="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#0F2B82] via-[#D99B26] to-[#0F2B82]"></div>
+
+        <div class="text-center max-w-3xl mx-auto mb-14">
+          <div class="inline-flex items-center gap-2 text-xs font-mono text-[#0F2B82] font-bold uppercase tracking-widest bg-blue-50 px-4 py-1.5 rounded-full mb-3 border border-blue-100">
+            THE DOMINION ADVANTAGE
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Why Choose Dominion Integrated?
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base mt-3">
+            We combine technical ingenuity with proven operational discipline to deliver enduring infrastructure for government agencies, corporate institutions, and private developers.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
+          <div class="flex items-start gap-4">
+            <div class="w-1.5 h-8 bg-[#0F2B82] rounded-full shrink-0 mt-1"></div>
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Multidisciplinary Engineering Team</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Licensed civil, structural, and electrical engineers working in synergy with certified project managers to ensure rigorous technical precision on every build.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="w-1.5 h-8 bg-[#0F2B82] rounded-full shrink-0 mt-1"></div>
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Strict Quality Assurance (QA/QC)</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">All concrete batches, electrical schematics, and structural foundations undergo strict laboratory and field load testing before project deployment.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="w-1.5 h-8 bg-[#0F2B82] rounded-full shrink-0 mt-1"></div>
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Certified Health, Safety & HSE Standard</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Zero-compromise safety culture on active sites. We maintain full statutory compliance with NSITF, ITF, and standard occupational health protocols.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="w-1.5 h-8 bg-[#0F2B82] rounded-full shrink-0 mt-1"></div>
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">On-Budget & Timely Project Delivery</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Transparent Bills of Quantities (BoQ), realistic milestones, and proactive supply chain management to eliminate contractor delays and unexpected costs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROCESS SECTION ==================== -->
+  <section id="process" class="py-24 bg-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-tech-grid-light opacity-40 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="mb-16">
+        <div class="inline-block bg-[#0F2B82] text-white font-mono text-xs uppercase tracking-widest px-6 py-2.5 font-bold badge-chamfer shadow-md mb-4">
+          PROCESS
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Our Structured Engineering Delivery Framework.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-[#0F2B82]/30 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-slate-200 group-hover:bg-[#0F2B82] transition-colors"></div>
+          <div>
+            <div class="text-5xl font-black font-mono tracking-tighter text-slate-200 group-hover:text-[#0F2B82]/20 transition-colors mb-4">01</div>
+            <h3 class="text-base font-bold text-slate-900 mb-2 group-hover:text-[#0F2B82]">Collaborate & Plan</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Site inspection, soil analysis, client briefing, and conceptual engineering feasibility.</p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-200/60 flex items-center justify-between text-[11px] font-mono text-slate-400">
+            <span>STAGE 01</span>
+            <span>✔</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-[#0F2B82]/30 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-slate-200 group-hover:bg-[#0F2B82] transition-colors"></div>
+          <div>
+            <div class="text-5xl font-black font-mono tracking-tighter text-slate-200 group-hover:text-[#0F2B82]/20 transition-colors mb-4">02</div>
+            <h3 class="text-base font-bold text-slate-900 mb-2 group-hover:text-[#0F2B82]">Design & Schematics</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Detailed architectural drawings, structural load models, and electrical schematics.</p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-200/60 flex items-center justify-between text-[11px] font-mono text-slate-400">
+            <span>STAGE 02</span>
+            <span>✔</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-[#0F2B82]/30 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-slate-200 group-hover:bg-[#0F2B82] transition-colors"></div>
+          <div>
+            <div class="text-5xl font-black font-mono tracking-tighter text-slate-200 group-hover:text-[#0F2B82]/20 transition-colors mb-4">03</div>
+            <h3 class="text-base font-bold text-slate-900 mb-2 group-hover:text-[#0F2B82]">Costing & Compliance</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Transparent BoQ generation, procurement logistics, and statutory permit authorizations.</p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-200/60 flex items-center justify-between text-[11px] font-mono text-slate-400">
+            <span>STAGE 03</span>
+            <span>✔</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-[#0F2B82]/30 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-slate-200 group-hover:bg-[#0F2B82] transition-colors"></div>
+          <div>
+            <div class="text-5xl font-black font-mono tracking-tighter text-slate-200 group-hover:text-[#0F2B82]/20 transition-colors mb-4">04</div>
+            <h3 class="text-base font-bold text-slate-900 mb-2 group-hover:text-[#0F2B82]">Construction & QC</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Execution by certified engineers, use of high-grade precast, and continuous QA/QC safety monitoring.</p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-200/60 flex items-center justify-between text-[11px] font-mono text-slate-400">
+            <span>STAGE 04</span>
+            <span>✔</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-[#0F2B82]/30 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-slate-200 group-hover:bg-[#0F2B82] transition-colors"></div>
+          <div>
+            <div class="text-5xl font-black font-mono tracking-tighter text-slate-200 group-hover:text-[#0F2B82]/20 transition-colors mb-4">05</div>
+            <h3 class="text-base font-bold text-slate-900 mb-2 group-hover:text-[#0F2B82]">Testing & Handover</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">High-voltage testing, structural sign-off, client walkthrough, and commissioning.</p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-200/60 flex items-center justify-between text-[11px] font-mono text-slate-400">
+            <span>STAGE 05</span>
+            <span>✔</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROJECTS GALLERY ==================== -->
+  <section id="projects" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-tech-grid opacity-15 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <div class="inline-block bg-[#0F2B82] text-white font-mono text-xs uppercase tracking-widest px-6 py-2.5 font-bold badge-chamfer border border-blue-400/30 shadow-md mb-4">
+            OUR PROJECTS
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+            Engineering in Action.
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-2">
+            Browse our portfolio of completed and ongoing infrastructure developments.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="group relative rounded-2xl overflow-hidden bg-slate-800 border border-white/10 shadow-xl h-[340px]">
+          <img src="./public/images/hero-construction.jpg" alt="Commercial Multi-Storey" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-90"></div>
+          <div class="absolute top-4 left-4 z-10">
+            <span class="px-3 py-1 rounded-md bg-black/60 backdrop-blur-md text-[11px] font-mono text-[#D99B26] font-semibold border border-white/10">📍 Oyo State</span>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+            <div class="text-[11px] font-mono uppercase tracking-wider text-blue-300 mb-1">Substructure & Superstructure</div>
+            <h3 class="text-lg font-bold text-white group-hover:text-[#D99B26]">Commercial Multi-Storey Framework</h3>
+          </div>
+        </div>
+
+        <div class="group relative rounded-2xl overflow-hidden bg-slate-800 border border-white/10 shadow-xl h-[340px]">
+          <img src="./public/images/services/solar-installation.jpg" alt="Solar Scheme" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-90"></div>
+          <div class="absolute top-4 left-4 z-10">
+            <span class="px-3 py-1 rounded-md bg-black/60 backdrop-blur-md text-[11px] font-mono text-[#D99B26] font-semibold border border-white/10">📍 South-West Nigeria</span>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+            <div class="text-[11px] font-mono uppercase tracking-wider text-blue-300 mb-1">Photovoltaic Integration</div>
+            <h3 class="text-lg font-bold text-white group-hover:text-[#D99B26]">Solar Street Lighting Scheme</h3>
+          </div>
+        </div>
+
+        <div class="group relative rounded-2xl overflow-hidden bg-slate-800 border border-white/10 shadow-xl h-[340px]">
+          <img src="./public/images/precast/electric-poles.jpg" alt="Electric Poles" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-90"></div>
+          <div class="absolute top-4 left-4 z-10">
+            <span class="px-3 py-1 rounded-md bg-black/60 backdrop-blur-md text-[11px] font-mono text-[#D99B26] font-semibold border border-white/10">📍 Oyo–Ogbomoso Plant</span>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+            <div class="text-[11px] font-mono uppercase tracking-wider text-blue-300 mb-1">Precast Manufacturing</div>
+            <h3 class="text-lg font-bold text-white group-hover:text-[#D99B26]">High Tension (HT) Electric Pole Batch</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIALS & COMMITMENT ==================== -->
+  <section class="py-24 bg-[#070D1F] text-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <!-- 3 Metrics -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
+        <div class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+          <div class="text-2xl font-extrabold text-[#D99B26] font-mono mb-1">On Budget</div>
+          <p class="text-xs text-slate-300">Transparent BoQs executed with strict cost control and zero hidden variations.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+          <div class="text-2xl font-extrabold text-blue-400 font-mono mb-1">On Program</div>
+          <p class="text-xs text-slate-300">Rigorous scheduling ensuring all project milestones and handovers complete on time.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+          <div class="text-2xl font-extrabold text-emerald-400 font-mono mb-1">Exceed Standards</div>
+          <p class="text-xs text-slate-300">Every structure and precast element exceeds national building and safety codes.</p>
+        </div>
+      </div>
+
+      <!-- Testimonial Box -->
+      <div class="bg-white/5 border border-white/10 rounded-3xl p-8 sm:p-12 relative backdrop-blur-md">
+        <div class="text-5xl font-serif text-[#D99B26]/30 leading-none mb-4">“</div>
+        <p class="text-lg sm:text-2xl text-slate-100 font-normal leading-relaxed mb-6 max-w-4xl">
+          Dominion Integrated executed our commercial facility electrical installation and high-tension connection with remarkable technical precision. Their adherence to safety protocols and strict delivery timelines set them apart.
+        </p>
+        <div class="pt-6 border-t border-white/10">
+          <div class="text-base font-bold text-white">Chief Engr. A. Adeleke</div>
+          <div class="text-xs text-[#D99B26] font-mono">Director of Infrastructure Development • Commercial Property Consortium</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONSULTATION & RFQ FORM ==================== -->
+  <section id="consultation" class="py-24 bg-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <!-- Left Image -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative h-[480px] sm:h-[540px] w-full overflow-hidden shadow-2xl bg-slate-900 img-chamfer-tl border-4 border-white">
+            <img src="./public/images/team/team-planning.jpg" alt="Reviewing Blueprints" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#070D1F]/90 via-transparent to-transparent"></div>
+            <div class="absolute bottom-6 left-6 right-6 p-5 rounded-xl bg-white/95 backdrop-blur-md shadow-lg border border-slate-200">
+              <div class="text-xs font-mono font-bold text-[#0F2B82] uppercase mb-1">Direct Engineering Support</div>
+              <div class="text-sm font-extrabold text-slate-900 mb-2">Speak with a Senior Consultant</div>
+              <div class="text-xs text-slate-600 space-y-1">
+                <div>📞 08101831076 / 07067315948</div>
+                <div>📧 dominionltd01@gmail.com</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Form -->
+        <div class="lg:col-span-7">
+          <div class="mb-8">
+            <div class="inline-block bg-[#0F2B82] text-white font-mono text-xs uppercase tracking-widest px-5 py-2 font-bold badge-chamfer shadow-sm mb-4">
+              CONSULTATION & RFQ
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              Schedule a Free Consultation
+            </h2>
+            <p class="text-slate-600 text-sm sm:text-base mt-2">
+              Fill out the form below for an instant quote, technical survey, or precast supply estimate.
+            </p>
+          </div>
+
+          <form id="consultForm" onsubmit="event.preventDefault(); const name=document.getElementById('cName').value; const phone=document.getElementById('cPhone').value; const srv=document.getElementById('cSrv').value; const msg=document.getElementById('cMsg').value; const wa=encodeURIComponent(`Hello Dominion Engineering, Consultation Request:\n*Name:* ${name}\n*Phone:* ${phone}\n*Service:* ${srv}\n*Details:* ${msg}`); window.open(`https://wa.me/2348101831076?text=${wa}`, '_blank');" class="space-y-6">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Full Name / Company Name *</label>
+              <input id="cName" type="text" required placeholder="Engr. John Doe / XYZ Ventures Ltd" class="w-full pb-3 border-b-2 border-slate-300 focus:border-[#0F2B82] text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none bg-transparent">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Phone / WhatsApp *</label>
+                <input id="cPhone" type="tel" required placeholder="0801 234 5678" class="w-full pb-3 border-b-2 border-slate-300 focus:border-[#0F2B82] text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none bg-transparent">
+              </div>
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Service of Interest *</label>
+                <select id="cSrv" class="w-full pb-3 border-b-2 border-slate-300 focus:border-[#0F2B82] text-sm text-slate-900 focus:outline-none bg-transparent cursor-pointer">
+                  <option value="Civil & Building Construction">Civil & Building Construction</option>
+                  <option value="Electrical Engineering & Power Grid">Electrical Engineering & Power Grid</option>
+                  <option value="Solar & Renewable Energy Solutions">Solar & Renewable Energy Solutions</option>
+                  <option value="Concrete Electric Poles & Precast">Concrete Electric Poles & Precast</option>
+                  <option value="Equipment Leasing & Plant Hire">Equipment Leasing & Plant Hire</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Project Scope / Requirements *</label>
+              <textarea id="cMsg" rows="3" required placeholder="Briefly describe project location, estimated timeline, or specific precast quantities..." class="w-full pb-3 border-b-2 border-slate-300 focus:border-[#0F2B82] text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none bg-transparent resize-none"></textarea>
+            </div>
+
+            <button type="submit" class="inline-flex items-center justify-center gap-3 bg-[#0F2B82] hover:bg-[#153bb5] text-white text-xs font-bold uppercase tracking-wider px-10 py-4 rounded-full shadow-lg transition-all">
+              <span>SCHEDULE NOW!</span>
+              <span class="text-[#D99B26]">→</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAP & BASES SECTION ==================== -->
+  <section id="contact" class="relative bg-slate-900 overflow-hidden">
+    <!-- Floating Card -->
+    <div class="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 -mb-20">
+      <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden grid grid-cols-1 md:grid-cols-12 items-center">
+        <div class="md:col-span-4 bg-[#070D1F] p-8 flex items-center justify-center relative min-h-[220px]">
+          <div class="relative w-28 h-28 bg-[#0F2B82] rounded-2xl rotate-45 border-2 border-[#D99B26]/60 flex items-center justify-center shadow-xl">
+            <div class="w-24 h-24 bg-white rounded-xl flex items-center justify-center p-2 shadow-inner">
+              <div class="-rotate-45 relative w-full h-full flex items-center justify-center">
+                <img src="./public/logo.png" alt="Dominion Logo" class="object-contain max-h-8">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-span-8 p-8 sm:p-10 bg-white">
+          <div class="inline-block text-[10px] font-mono uppercase tracking-widest text-[#0F2B82] font-bold bg-blue-50 px-3 py-1 rounded-md mb-3">
+            OPERATIONAL BASES • OYO STATE
+          </div>
+          <h3 class="text-2xl font-extrabold text-slate-900 mb-4">Dominion Integrated Facilities</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-600 mb-4">
+            <div>
+              <strong class="block text-slate-900 font-bold">Administrative Office:</strong>
+              No. 24, Dominion Office, BCT Complex, Isokun, Oyo–Iseyin Road, Oyo State.
+            </div>
+            <div>
+              <strong class="block text-slate-900 font-bold">Production & Precast Plant:</strong>
+              No. 1, Dominion Building, EAUED Underpass Bridge, Olooro Road Junction, Oyo–Ogbomoso Expressway, Oyo State.
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-4 text-xs font-semibold text-slate-700">
+            <a href="tel:08101831076" class="hover:text-[#0F2B82]">📞 08101831076 / 07067315948</a>
+            <a href="mailto:dominionltd01@gmail.com" class="hover:text-[#0F2B82]">📧 dominionltd01@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div class="relative w-full h-[450px] lg:h-[500px] z-10 pt-20">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126280.97541295988!2d3.864319455323214!3d7.842777414841961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103777d13e3ce013%3A0x6b447477c7198bb6!2sOyo%2C%20Oyo%20State!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-[#050A18] text-white pt-20 pb-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 pb-16 border-b border-white/10">
+        <div class="lg:col-span-5 space-y-6">
+          <div class="inline-block bg-white px-4 py-2 rounded-xl">
+            <img src="./public/logo.png" alt="Dominion Logo" class="h-9 w-auto object-contain">
+          </div>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-md">
+            Dominion Integrated Electrical & Engineering Limited is a multidisciplinary engineering and infrastructure firm incorporated on February 4, 2020 (RC: 1655029).
+          </p>
+          <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 text-xs font-mono text-[#D99B26]">
+            RC: 1655029 • SMEDAN: SUID-9142-6143-5422-0697 • FIRS Tax Compliant
+          </div>
+        </div>
+
+        <div class="lg:col-span-3">
+          <h4 class="text-xs font-mono font-bold uppercase tracking-widest text-[#D99B26] mb-6">// NAVIGATION</h4>
+          <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300">
+            <li><a href="#about" class="hover:text-[#D99B26]">About Dominion</a></li>
+            <li><a href="#services" class="hover:text-[#D99B26]">Civil & Structural Works</a></li>
+            <li><a href="#services" class="hover:text-[#D99B26]">Electrical & Power Systems</a></li>
+            <li><a href="#services" class="hover:text-[#D99B26]">Solar & Renewable Energy</a></li>
+            <li><a href="#precast" class="hover:text-[#D99B26]">Concrete Electric Poles</a></li>
+            <li><a href="#projects" class="hover:text-[#D99B26]">Project Portfolio</a></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-4">
+          <h4 class="text-xs font-mono font-bold uppercase tracking-widest text-[#D99B26] mb-6">// LOCATIONS</h4>
+          <div class="space-y-3 text-xs text-slate-300">
+            <div>
+              <strong class="text-white block">Admin Office:</strong>
+              No. 24, Dominion Office, BCT Complex, Isokun, Oyo–Iseyin Road, Oyo State.
+            </div>
+            <div>
+              <strong class="text-white block">Production Facility:</strong>
+              No. 1, Dominion Building, EAUED Underpass Bridge, Olooro Road Junction, Oyo–Ogbomoso Expressway, Oyo State.
+            </div>
+            <div class="pt-2">
+              <div>📞 08101831076 / 07067315948</div>
+              <div>📧 dominionltd01@gmail.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div>© 2026 Dominion Integrated Electrical & Engineering Limited. All rights reserved.</div>
+        <a href="#" class="text-slate-300 hover:text-white bg-white/5 px-4 py-1.5 rounded-full border border-white/10">Back to Top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const btn = document.getElementById('mobileMenuBtn');
+    const drawer = document.getElementById('mobileDrawer');
+    if (btn && drawer) {
+      btn.addEventListener('click', () => {
+        drawer.classList.toggle('hidden');
+      });
+    }
+  </script>
+</body>
+</html>

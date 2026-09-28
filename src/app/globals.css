@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --primary: #0F2B82;
+    --primary-dark: #0A1D59;
+    --primary-light: #1E44B8;
+    --accent: #D99B26;
+    --accent-hover: #BF831A;
+    --accent-light: #F5B041;
+    --dark-bg: #070D1F;
+    --dark-surface: #0C1733;
+    --dark-card: #112044;
+    --light-bg: #F8FAFC;
+    --light-surface: #FFFFFF;
+    --border-light: #E2E8F0;
+    --border-dark: rgba(255, 255, 255, 0.12);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    color: #1E293B;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Geometric Architectural Clip Paths */
+
+/* Beveled Section Badges */
+.badge-chamfer {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+}
+
+.badge-chamfer-alt {
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+}
+
+/* Image Chamfers */
+.img-chamfer-bl {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 56px 100%, 0 calc(100% - 56px));
+}
+
+.img-chamfer-br {
+  clip-path: polygon(0 0, 100% 0, calc(100% - 56px) 100%, 0 100%);
+}
+
+.img-chamfer-tl {
+  clip-path: polygon(56px 0, 100% 0, 100% 100%, 0 100%, 0 56px);
+}
+
+.img-chamfer-tr {
+  clip-path: polygon(0 0, calc(100% - 56px) 0, 100% 56px, 100% 100%, 0 100%);
+}
+
+/* Card Chamfers */
+.card-chamfer-sm {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+}
+
+.diamond-mask {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+/* Subtle Technical Grid Background */
+.bg-tech-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+.bg-tech-grid-light {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(15, 43, 130, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 43, 130, 0.04) 1px, transparent 1px);
+}
+
