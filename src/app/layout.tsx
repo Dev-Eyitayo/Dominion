@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import PublicShell from "@/components/PublicShell";
 import "./globals.css";
 
 const jakartaSans = Plus_Jakarta_Sans({
@@ -248,9 +247,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col bg-white text-slate-900 font-sans antialiased selection:bg-[#0F2B82] selection:text-white">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <PublicShell>{children}</PublicShell>
       </body>
     </html>
   );
