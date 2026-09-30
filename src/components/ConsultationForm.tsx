@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { PhoneIcon, EnvelopeIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
 import CustomServiceDropdown from "@/components/CustomServiceDropdown";
+import { submitPublicInquiryAction } from "@/lib/inquiries/actions";
 
 export default function ConsultationForm() {
   const [formData, setFormData] = useState({
@@ -14,15 +15,43 @@ export default function ConsultationForm() {
     location: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const waText = encodeURIComponent(
-      `Hello Dominion Engineering, I would like to request an official consultation / quote:\n\n*Name:* ${formData.name}\n*Phone:* ${formData.phone}\n*Email:* ${formData.email || "Not provided"}\n*Service:* ${formData.service}\n*Location:* ${formData.location}\n*Scope/Details:* ${formData.message || "Standard scope"}`
-    );
-    window.open(`https://wa.me/2348101831076?text=${waText}`, "_blank");
-    setSubmitted(true);
+    setErrorMessage(null);
+    setIsSubmitting(true);
+
+    try {
+      const result = await submitPublicInquiryAction({
+        clientName: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        serviceType: formData.service,
+        location: formData.location,
+        scopeDetails: formData.message || "Standard consultation and engineering quote request",
+      });
+
+      if (result.success) {
+        setSubmitted(true);
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          service: "Manufacturing & Precast Concrete",
+          location: "",
+          message: "",
+        });
+      } else {
+        setErrorMessage(result.error || "Failed to submit request. Please try again.");
+      }
+    } catch {
+      setErrorMessage("A network error occurred. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -73,19 +102,35 @@ export default function ConsultationForm() {
                 Schedule a Consultation &amp; RFQ
               </h2>
               <p className="text-slate-600 text-sm mt-2">
-                Fill out the engineering request form below for direct WhatsApp dispatch or formal BoQ evaluation.
+                Fill out the engineering request form below for direct evaluation and formal proposal dispatch from our engineering desk.
               </p>
             </div>
 
+            {errorMessage && (
+              <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-600 text-red-800 text-xs font-mono leading-relaxed">
+                <div className="font-bold uppercase mb-0.5">Submission Error</div>
+                <div>{errorMessage}</div>
+              </div>
+            )}
+
             {submitted ? (
-              <div className="p-8 bg-green-50 border border-green-200 text-center">
-                <CheckCircleIcon className="w-12 h-12 text-green-600 mx-auto mb-3" />
-                <h3 className="text-lg font-bold text-green-900 mb-1">
-                  Request Dispatched Successfully
+              <div className="p-8 bg-emerald-50 border border-emerald-200 text-center space-y-3">
+                <CheckCircleIcon className="w-12 h-12 text-emerald-600 mx-auto" />
+                <h3 className="text-lg font-bold text-emerald-950 uppercase tracking-tight">
+                  Thank You! We Have Received Your Request
                 </h3>
-                <p className="text-xs sm:text-sm text-green-700">
-                  Our engineering team has received your request and will follow up shortly.
+                <p className="text-xs sm:text-sm text-emerald-800 max-w-md mx-auto leading-relaxed">
+                  We have received your project details. Our team will review your specifications and reach out to you shortly to discuss your quotation.
                 </p>
+                <div className="pt-3">
+                  <button
+                    type="button"
+                    onClick={() => setSubmitted(false)}
+                    className="inline-block px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-mono text-xs uppercase font-bold transition cursor-pointer"
+                  >
+                    Submit Another Request
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -99,7 +144,7 @@ export default function ConsultationForm() {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Engr. / Alhaji / Chief"
+                      placeholder="Engr. / Alhaji / Chief / Company"
                       className="w-full bg-slate-50 border border-slate-300 px-4 py-3 text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-[#0F2B82]"
                     />
                   </div>
@@ -156,10 +201,11 @@ export default function ConsultationForm() {
 
                 <div>
                   <label className="block text-xs font-mono font-bold uppercase tracking-widest text-slate-700 mb-2">
-                    PROJECT SCOPE &amp; SPECIFICATIONS
+                    PROJECT SCOPE &amp; SPECIFICATIONS *
                   </label>
                   <textarea
                     rows={4}
+                    required
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Mention quantity of poles, building square meters, transformer kVA, or solar inverter capacity..."
@@ -169,9 +215,10 @@ export default function ConsultationForm() {
 
                 <button
                   type="submit"
-                  className="w-full bg-[#0F2B82] hover:bg-[#13359e] text-white text-xs font-bold uppercase tracking-widest py-4 transition-colors"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#0F2B82] hover:bg-[#070D1F] disabled:bg-slate-400 text-white text-xs font-bold uppercase tracking-widest py-4 transition-colors cursor-pointer"
                 >
-                  SUBMIT INQUIRY VIA WHATSAPP DISPATCH
+                  {isSubmitting ? "SENDING YOUR INQUIRY..." : "SUBMIT INQUIRY"}
                 </button>
               </form>
             )}

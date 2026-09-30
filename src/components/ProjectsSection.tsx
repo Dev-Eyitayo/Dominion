@@ -4,7 +4,71 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ProjectsSection() {
+interface FeaturedProject {
+  title: string;
+  slug?: string;
+  category: string;
+  location: string;
+  scope: string;
+  image: string;
+}
+
+interface ProjectsSectionProps {
+  initialProjects?: FeaturedProject[];
+}
+
+const defaultProjects: FeaturedProject[] = [
+  {
+    title: "Housing Estate Multi-Structure Development",
+    slug: "housing-estate-multi-structure-development",
+    category: "civil",
+    location: "Oyo State",
+    scope: "Substructure & Superstructure Concrete Blockwork",
+    image: "/images/projects/FB_IMG_1782343190705.jpg",
+  },
+  {
+    title: "Commercial Solar Street Lighting & Mini-Grids",
+    slug: "commercial-solar-street-lighting-mini-grids",
+    category: "electrical",
+    location: "South-West Nigeria",
+    scope: "Turnkey Photovoltaic & Battery Integration",
+    image: "/images/services/solar-installation.jpg",
+  },
+  {
+    title: "High Tension (HT) Electric Pole Batching",
+    slug: "ht-lt-concrete-electric-poles-production",
+    category: "precast",
+    location: "Oyo–Ogbomoso Production Plant",
+    scope: "Heavy Reinforced Concrete Electric Poles",
+    image: "/images/precast/electric-poles.jpg",
+  },
+  {
+    title: "Highway Earthworks & Compaction Operations",
+    slug: "highway-earthworks-vibratory-compaction",
+    category: "civil",
+    location: "South-West Corridor",
+    scope: "Heavy Road Base Vibratory Compaction & Grading",
+    image: "/images/projects/FB_IMG_1782363598182.jpg",
+  },
+  {
+    title: "Asphalt Highway Paving & Road Shoulders",
+    slug: "asphalt-highway-paving-roadway-kerbing",
+    category: "civil",
+    location: "Regional Corridor",
+    scope: "Bituminous Asphalt Surfacing & Kerbing",
+    image: "/images/projects/FB_IMG_1782363608838.jpg",
+  },
+  {
+    title: "33kV / 11kV Power Pole Delivery & Rigging",
+    slug: "33kv-11kv-grid-pole-rigging-line-stringing",
+    category: "electrical",
+    location: "Distribution Network Hub",
+    scope: "Crane Hoist Transport & Line Erection",
+    image: "/images/precast/pole-transport.jpg",
+  },
+];
+
+export default function ProjectsSection({ initialProjects = defaultProjects }: ProjectsSectionProps) {
   const [activeTab, setActiveTab] = useState("all");
 
   const categories = [
@@ -14,76 +78,10 @@ export default function ProjectsSection() {
     { id: "precast", label: "CONCRETE & PRECAST" },
   ];
 
-  const projects = [
-    {
-      title: "Commercial & Estate Housing Development",
-      category: "civil",
-      location: "Oyo State",
-      scope: "Substructure & Superstructure Concrete Blockwork",
-      image: "/images/projects/FB_IMG_1782343190705.jpg",
-    },
-    {
-      title: "Solar Street Lighting & PV Infrastructure",
-      category: "electrical",
-      location: "South-West Nigeria",
-      scope: "Turnkey Photovoltaic & Battery Integration",
-      image: "/images/services/solar-installation.jpg",
-    },
-    {
-      title: "High Tension (HT) Electric Pole Batching",
-      category: "precast",
-      location: "Oyo–Ogbomoso Production Plant",
-      scope: "Heavy Reinforced Concrete Electric Poles",
-      image: "/images/precast/electric-poles.jpg",
-    },
-    {
-      title: "Highway Earthworks & Compaction Operations",
-      category: "civil",
-      location: "South-West Corridor",
-      scope: "Heavy Road Base Vibratory Compaction & Grading",
-      image: "/images/projects/FB_IMG_1782363598182.jpg",
-    },
-    {
-      title: "Asphalt Highway Paving & Road Shoulders",
-      category: "civil",
-      location: "Regional Corridor",
-      scope: "Bituminous Asphalt Surfacing & Kerbing",
-      image: "/images/projects/FB_IMG_1782363608838.jpg",
-    },
-    {
-      title: "33kV / 11kV Power Pole Delivery & Rigging",
-      category: "electrical",
-      location: "Distribution Network Hub",
-      scope: "Crane Hoist Transport & Line Erection",
-      image: "/images/precast/pole-transport.jpg",
-    },
-    {
-      title: "Precast Stay Blocks & Anchor Slabs",
-      category: "precast",
-      location: "Manufacturing Yard",
-      scope: "High-Load Precast Foundation Elements",
-      image: "/images/precast/stay-blocks.jpg",
-    },
-    {
-      title: "Precast Drainage Channels & Custom Moulds",
-      category: "precast",
-      location: "Oyo Factory Plant",
-      scope: "Reinforced Stormwater & Roadway Kerbing",
-      image: "/images/precast/concrete-yard.jpg",
-    },
-    {
-      title: "Modern Villa Electrification & Illumination",
-      category: "electrical",
-      location: "Private Residence Scheme",
-      scope: "Architectural Exterior Lighting & Internal Power",
-      image: "/images/projects/FB_IMG_1782363963623.jpg",
-    },
-  ];
-
   const filteredProjects =
     activeTab === "all"
-      ? projects
-      : projects.filter((p) => p.category === activeTab);
+      ? initialProjects
+      : initialProjects.filter((p) => p.category === activeTab);
 
   return (
     <section id="projects" className="py-24 bg-white text-slate-900 border-b border-slate-200">
@@ -109,7 +107,7 @@ export default function ProjectsSection() {
                 key={cat.id}
                 type="button"
                 onClick={() => setActiveTab(cat.id)}
-                className={`px-4 py-2 text-xs font-bold font-mono tracking-wider transition-all border ${
+                className={`px-4 py-2 text-xs font-bold font-mono tracking-wider transition-all border cursor-pointer ${
                   activeTab === cat.id
                     ? "bg-[#0F2B82] text-white border-[#0F2B82]"
                     : "bg-white text-slate-700 border-slate-300 hover:border-[#0F2B82] hover:text-[#0F2B82]"
@@ -124,8 +122,9 @@ export default function ProjectsSection() {
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project, idx) => (
-            <div
+            <Link
               key={idx}
+              href={project.slug ? `/projects/${project.slug}` : "/projects"}
               className="group relative bg-white border border-slate-200 hover:border-[#0F2B82] transition-colors flex flex-col h-[380px] overflow-hidden"
             >
               <div className="relative w-full h-[220px] overflow-hidden bg-slate-100">
@@ -148,18 +147,21 @@ export default function ProjectsSection() {
                   <div className="text-[11px] font-mono uppercase tracking-wider text-[#0F2B82] font-semibold mb-1">
                     {project.scope}
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-[#0F2B82] transition-colors">
+                  <h3 className="text-base font-bold text-slate-900 group-hover:text-[#0F2B82] transition-colors line-clamp-2">
                     {project.title}
                   </h3>
                 </div>
 
-                <div className="pt-3 border-t border-slate-100">
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
                   <span className="text-[11px] font-mono uppercase tracking-widest text-slate-500 group-hover:text-slate-900 font-bold">
                     SPECIFICATION VERIFIED
                   </span>
+                  <span className="text-xs font-mono font-bold text-[#0F2B82]">
+                    VIEW →
+                  </span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

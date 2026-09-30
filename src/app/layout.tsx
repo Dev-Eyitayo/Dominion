@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { Toaster } from "sonner";
 import PublicShell from "@/components/PublicShell";
 import "./globals.css";
 
@@ -247,6 +248,16 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col bg-white text-slate-900 font-sans antialiased selection:bg-[#0F2B82] selection:text-white">
+        <Toaster
+          position="top-right"
+          richColors
+          toastOptions={{
+            style: {
+              borderRadius: "0px",
+              fontFamily: "var(--font-mono), monospace",
+            },
+          }}
+        />
         <PublicShell>{children}</PublicShell>
       </body>
     </html>
