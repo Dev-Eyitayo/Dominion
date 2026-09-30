@@ -27,8 +27,8 @@ export default function AboutSection() {
 
         {/* 2-Column Split */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Column: Image */}
-          <div className="lg:col-span-5 relative">
+          {/* Column: Image (Second on mobile, Left on desktop) */}
+          <div className="order-2 lg:order-1 lg:col-span-5 relative">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               <div className="relative h-[480px] sm:h-[560px] w-full overflow-hidden bg-slate-900 border-4 border-slate-100">
                 <Image
@@ -56,10 +56,10 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Right Column: Narrative & Values */}
-          <div className="lg:col-span-7">
+          {/* Column: Narrative & Values (First on mobile, Right on desktop) */}
+          <div className="order-1 lg:order-2 lg:col-span-7">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6 uppercase">
-              Delivering Quality Engineering, Infrastructure &amp; Power Solutions Across Nigeria
+              Welcome to Dominion Integrated Electrical &amp; Engineering Limited
             </h2>
 
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-6">
@@ -70,28 +70,6 @@ export default function AboutSection() {
               Our unwavering commitment to quality, professionalism, innovation, and client satisfaction has positioned us as a trusted partner for both public sector tenders and private sector developments.
             </p>
 
-            {/* Vision & Mission Cards */}
-            {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-              <div className="p-6 bg-slate-50 border border-slate-200">
-                <div className="flex items-center gap-2 text-[#0F2B82] font-bold text-xs uppercase tracking-wider mb-2 font-mono">
-                  <SparklesIcon className="w-4 h-4 text-[#D99B26]" />
-                  Our Vision
-                </div>
-                <p className="text-xs sm:text-sm text-slate-600 leading-normal">
-                  To become one of Nigeria&apos;s foremost engineering and infrastructure development corporations recognized for excellence, innovation, and sustainable solutions.
-                </p>
-              </div>
-
-              <div className="p-6 bg-slate-50 border border-slate-200">
-                <div className="flex items-center gap-2 text-[#0F2B82] font-bold text-xs uppercase tracking-wider mb-2 font-mono">
-                  <ShieldCheckIcon className="w-4 h-4 text-[#D99B26]" />
-                  Our Mission
-                </div>
-                <p className="text-xs sm:text-sm text-slate-600 leading-normal">
-                  To deliver top-tier engineering, construction, electrical, renewable energy, and precast services that consistently exceed expectations while upholding safety, integrity, and professionalism.
-                </p>
-              </div>
-            </div> */}
 
             {/* Action CTA */}
             <div className="flex flex-wrap items-center gap-4">

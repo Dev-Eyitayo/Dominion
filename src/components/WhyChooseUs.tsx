@@ -36,7 +36,7 @@ export default function WhyChooseUs() {
             THE DOMINION ADVANTAGE
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 uppercase tracking-tight">
-            Why Choose Dominion Integrated
+            Why Choose Us
           </h2>
           <p className="text-slate-600 text-sm sm:text-base mt-3">
             We combine technical ingenuity with proven operational discipline to deliver enduring infrastructure for government agencies, corporate institutions, and private developers.

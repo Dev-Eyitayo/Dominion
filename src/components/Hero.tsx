@@ -72,11 +72,11 @@ export default function Hero() {
         <div className="max-w-3xl">
           
           {/* Registration Badge */}
-          <div className="inline-flex items-center gap-3 px-4 py-2 bg-white/10 border-l-2 border-[#D99B26] text-xs font-mono text-white backdrop-blur-md mb-6">
+          {/* <div className="inline-flex items-center gap-3 px-4 py-2 bg-white/10 border-l-2 border-[#D99B26] text-xs font-mono text-white backdrop-blur-md mb-6">
             <span className="font-bold text-[#D99B26]">RC: 1655029</span>
             <span className="text-white/40">|</span>
             <span>DOMINION INTEGRATED ELECTRICAL &amp; ENGINEERING LTD</span>
-          </div>
+          </div> */}
 
           {/* Headline */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12] mb-6">
@@ -107,7 +107,7 @@ export default function Hero() {
           </div>
 
           {/* Trust Specifications */}
-          <div className="pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-3 gap-6 text-slate-200 text-xs font-mono">
+          {/* <div className="pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-3 gap-6 text-slate-200 text-xs font-mono">
             <div>
               <span className="block text-[#D99B26] font-bold">SMEDAN REG</span>
               <span>SUID-9142-6143-5422</span>
@@ -120,7 +120,7 @@ export default function Hero() {
               <span className="block text-[#D99B26] font-bold">HSE STANDARD</span>
               <span>Zero Incident Policy</span>
             </div>
-          </div>
+          </div> */}
 
         </div>
       </div>

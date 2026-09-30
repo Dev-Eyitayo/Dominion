@@ -44,7 +44,7 @@ const mainNavItems = [
     ),
   },
   {
-    label: "Engineering Capabilities",
+    label: "Engineering Services",
     href: "/admin/services",
     exact: false,
     icon: (

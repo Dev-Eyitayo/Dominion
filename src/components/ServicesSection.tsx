@@ -77,12 +77,12 @@ export default function ServicesSection() {
               CORE BUSINESS PILLARS
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight uppercase">
-              Integrated Engineering Services
+              Our Services
             </h2>
           </div>
-          <p className="max-w-md text-slate-600 text-sm leading-relaxed">
+          {/* <p className="max-w-md text-slate-600 text-sm leading-relaxed">
             Full-lifecycle civil construction, high-voltage electrification, smart solar mini-grids, and equipment leasing handled by licensed engineers.
-          </p>
+          </p> */}
         </div>
 
         {/* Services Cards Grid */}

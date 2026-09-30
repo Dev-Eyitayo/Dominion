@@ -8,9 +8,29 @@ dotenv.config({ path: ".env.local" });
 dotenv.config({ path: ".env" });
 
 export async function seedAdmin() {
-  const adminName = process.env.ADMIN_INIT_NAME || "Dominion Super Admin";
-  const adminEmail = (process.env.ADMIN_INIT_EMAIL || "admin@dominionltd.ng").toLowerCase().trim();
-  const adminPassword = process.env.ADMIN_INIT_PASSWORD || "AdminSecure2026!";
+  const adminName =
+    process.env.ADMIN_INIT_NAME ||
+    process.env.ADMIN_NAME ||
+    "Dominion Super Admin";
+
+  const adminEmail = (
+    process.env.ADMIN_INIT_EMAIL ||
+    process.env.ADMIN_EMAIL ||
+    ""
+  ).toLowerCase().trim();
+
+  const adminPassword =
+    process.env.ADMIN_INIT_PASSWORD ||
+    process.env.ADMIN_PASSWORD ||
+    "";
+
+  if (!adminEmail || !adminPassword) {
+    console.warn(
+      "⚠️  ADMIN_INIT_EMAIL and/or ADMIN_INIT_PASSWORD are not set in environment (.env.local / .env)."
+    );
+    console.warn("👉 Please set them before running admin seed.");
+    return;
+  }
 
   console.log(`Checking if super admin exists for: ${adminEmail}...`);
 
@@ -35,7 +55,7 @@ export async function seedAdmin() {
       role: "super_admin",
     });
 
-    console.log("Super Admin account successfully created!");
+    console.log("Super Admin account successfully created from ENV!");
     console.log(`Email: ${adminEmail}`);
   } catch (error) {
     console.error("Error during admin seeding:", error);
