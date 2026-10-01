@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
 import Link from "next/link";
 
 interface FeaturedProject {
@@ -128,7 +128,7 @@ export default function ProjectsSection({ initialProjects = defaultProjects }: P
               className="group relative bg-white border border-slate-200 hover:border-[#0F2B82] transition-colors flex flex-col h-[380px] overflow-hidden"
             >
               <div className="relative w-full h-[220px] overflow-hidden bg-slate-100">
-                <Image
+                <SafeImage
                   src={project.image}
                   alt={project.title}
                   fill
@@ -170,7 +170,7 @@ export default function ProjectsSection({ initialProjects = defaultProjects }: P
             href="/projects"
             className="inline-block px-8 py-3.5 bg-[#0F2B82] hover:bg-slate-900 text-white font-mono text-xs uppercase tracking-widest font-bold transition-all border border-[#0F2B82]"
           >
-            VIEW COMPLETE PROJECTS DIRECTORY
+            VIEW COMPLETE PROJECTS 
           </Link>
         </div>
       </div>

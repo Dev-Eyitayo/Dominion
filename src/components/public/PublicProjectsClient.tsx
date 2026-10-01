@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import SafeImage from "@/components/SafeImage";
 
 export interface PublicProjectItem {
   id: string;
@@ -127,7 +127,7 @@ export default function PublicProjectsClient({ initialProjects }: PublicProjects
               <div>
                 {/* Featured Photo Banner */}
                 <div className="h-60 overflow-hidden bg-slate-100 relative">
-                  <Image
+                  <SafeImage
                     src={item.featuredImageUrl}
                     alt={item.title}
                     fill

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
 import { getCurrentAdmin } from "@/lib/auth/actions";
 import { db } from "@/db";
 import { engineeringServices } from "@/db/schema";
@@ -60,7 +60,7 @@ export default async function AdminServicesPage({ searchParams }: ServicesPagePr
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Engineering Services Directory
+            Engineering Services
           </h2>
           <p className="text-xs text-slate-500 mt-1">
             Manage practice capabilities, deliverables, and service profiles
@@ -108,18 +108,12 @@ export default async function AdminServicesPage({ searchParams }: ServicesPagePr
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-10 relative rounded-sm bg-slate-100 overflow-hidden shrink-0 border border-slate-200">
-                          {service.featuredImageUrl ? (
-                            <Image
-                              src={service.featuredImageUrl}
-                              alt={service.title}
-                              fill
-                              className="object-cover"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-[9px] text-slate-400">
-                              N/A
-                            </div>
-                          )}
+                          <SafeImage
+                            src={service.featuredImageUrl}
+                            alt={service.title}
+                            fill
+                            className="object-cover"
+                          />
                         </div>
                         <div className="min-w-0">
                           <div className="font-semibold text-slate-900 truncate max-w-xs sm:max-w-md text-sm">

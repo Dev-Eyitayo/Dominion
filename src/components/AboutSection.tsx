@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
 import Link from "next/link";
 import { ShieldCheckIcon, SparklesIcon } from "@heroicons/react/24/outline";
 
@@ -31,7 +31,7 @@ export default function AboutSection() {
           <div className="order-2 lg:order-1 lg:col-span-5 relative">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               <div className="relative h-[480px] sm:h-[560px] w-full overflow-hidden bg-slate-900 border-4 border-slate-100">
-                <Image
+                <SafeImage
                   src="/images/team/team-engineers.jpg"
                   alt="Dominion Integrated Leadership & Field Engineers"
                   fill

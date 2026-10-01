@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
 import Link from "next/link";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
@@ -54,7 +54,7 @@ export default function Hero() {
               idx === currentSlide ? "scale-110" : "scale-100"
             }`}
           >
-            <Image
+            <SafeImage
               src={slide.img}
               alt={slide.title}
               fill

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
+import SafeImage from "@/components/SafeImage";
 import { db } from "@/db";
 import { projects } from "@/db/schema";
 import { eq } from "drizzle-orm";
@@ -58,7 +58,7 @@ export default async function PublicProjectDetailPage({ params }: ProjectPagePro
       {/* Hero Header */}
       <section className="pt-36 pb-20 relative overflow-hidden bg-slate-950">
         <div className="absolute inset-0 z-0">
-          <Image
+          <SafeImage
             src={project.featuredImageUrl}
             alt={project.title}
             fill
@@ -105,7 +105,7 @@ export default async function PublicProjectDetailPage({ params }: ProjectPagePro
             <div className="lg:col-span-2 space-y-12">
               {/* Featured Cover Image */}
               <div className="relative aspect-video w-full rounded-sm overflow-hidden bg-slate-100 border border-slate-200 shadow-sm">
-                <Image
+                <SafeImage
                   src={project.featuredImageUrl}
                   alt={project.title}
                   fill
@@ -146,7 +146,7 @@ export default async function PublicProjectDetailPage({ params }: ProjectPagePro
                         className="bg-slate-50 border border-slate-200 rounded-sm overflow-hidden flex flex-col"
                       >
                         <div className="relative aspect-4/3 w-full bg-slate-200">
-                          <Image
+                          <SafeImage
                             src={img.url}
                             alt={img.caption || `Gallery photo ${idx + 1}`}
                             fill

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
 import { getCurrentAdmin } from "@/lib/auth/actions";
 import { db } from "@/db";
 import { projects } from "@/db/schema";
@@ -138,18 +138,12 @@ export default async function AdminProjectsPage({ searchParams }: ProjectsPagePr
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-10 relative rounded-sm bg-slate-100 overflow-hidden shrink-0 border border-slate-200">
-                          {project.featuredImageUrl ? (
-                            <Image
-                              src={project.featuredImageUrl}
-                              alt={project.title}
-                              fill
-                              className="object-cover"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-[9px] text-slate-400">
-                              N/A
-                            </div>
-                          )}
+                          <SafeImage
+                            src={project.featuredImageUrl}
+                            alt={project.title}
+                            fill
+                            className="object-cover"
+                          />
                         </div>
                         <div className="min-w-0">
                           <div className="font-semibold text-slate-900 truncate max-w-xs sm:max-w-md text-sm">

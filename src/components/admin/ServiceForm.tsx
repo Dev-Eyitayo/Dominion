@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -316,7 +316,7 @@ export default function ServiceForm({ initialData, isEditing = false }: ServiceF
 
             {imagePreview ? (
               <div className="relative aspect-video w-full rounded-sm overflow-hidden bg-slate-100 border border-slate-200 group">
-                <Image
+                <SafeImage
                   src={imagePreview}
                   alt="Service preview"
                   fill

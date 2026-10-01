@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
 import Link from "next/link";
 import { Metadata } from "next";
 import { db } from "@/db";
@@ -56,7 +56,7 @@ export default async function ManufacturingPage() {
       {/* Page Hero with Background Image & Gradient Overlay */}
       <section className="pt-36 pb-20 relative overflow-hidden bg-slate-950">
         <div className="absolute inset-0 z-0">
-          <Image
+          <SafeImage
             src="/images/precast/electric-poles.jpg"
             alt="Dominion Manufacturing Plant"
             fill
@@ -164,7 +164,7 @@ export default async function ManufacturingPage() {
                           : "[clip-path:polygon(0%_0%,100%_0%,100%_100%,14%_100%)] -rotate-2"
                       } shadow-2xl transform group-hover:rotate-0 transition-transform duration-500 border-t-4 border-[#0F2B82] bg-slate-900`}
                     >
-                      <Image
+                      <SafeImage
                         src={product.imageUrl || "/images/precast/electric-poles.jpg"}
                         alt={product.title}
                         fill

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
 import Link from "next/link";
 import { ShieldCheckIcon } from "@heroicons/react/24/outline";
 
@@ -61,7 +61,7 @@ export default function PrecastSection() {
             >
               {/* Image */}
               <div className="relative h-48 w-full bg-slate-200 overflow-hidden">
-                <Image
+                <SafeImage
                   src={item.image}
                   alt={item.name}
                   fill
@@ -126,7 +126,7 @@ export default function PrecastSection() {
             </div>
 
             <div className="lg:col-span-4 border border-white/20 p-2 bg-slate-900 h-52 relative">
-              <Image
+              <SafeImage
                 src="/images/precast/pole-transport.jpg"
                 alt="Pole Transport Logistics"
                 fill

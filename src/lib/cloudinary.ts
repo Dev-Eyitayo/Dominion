@@ -33,24 +33,46 @@ export async function uploadToCloudinary(
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
-  // Fallback to local storage if Cloudinary credentials are not set
+  // Fallback if Cloudinary credentials are not set
   if (!isCloudinaryConfigured) {
-    const cleanFolder = folder.replace(/^dominion\/?/, "") || "uploads";
-    const uploadDir = path.join(process.cwd(), "public", "uploads", cleanFolder);
-    await mkdir(uploadDir, { recursive: true });
+    const isVercel = Boolean(process.env.VERCEL || process.env.NEXT_PUBLIC_VERCEL_ENV);
+    
+    // In serverless environments like Vercel, filesystem is read-only; use Data URI
+    if (isVercel) {
+      const mimeType = file.type || "image/jpeg";
+      const base64 = buffer.toString("base64");
+      return {
+        url: `data:${mimeType};base64,${base64}`,
+        publicId: `data_${Date.now()}`,
+      };
+    }
 
-    const ext = path.extname(file.name) || ".jpg";
-    const baseName = path.basename(file.name, ext).replace(/[^a-zA-Z0-9_-]/g, "_");
-    const filename = `${baseName}_${Date.now()}${ext}`;
-    const filePath = path.join(uploadDir, filename);
+    try {
+      const cleanFolder = folder.replace(/^dominion\/?/, "") || "uploads";
+      const uploadDir = path.join(process.cwd(), "public", "uploads", cleanFolder);
+      await mkdir(uploadDir, { recursive: true });
 
-    await writeFile(filePath, buffer);
+      const ext = path.extname(file.name) || ".jpg";
+      const baseName = path.basename(file.name, ext).replace(/[^a-zA-Z0-9_-]/g, "_");
+      const filename = `${baseName}_${Date.now()}${ext}`;
+      const filePath = path.join(uploadDir, filename);
 
-    const publicUrl = `/uploads/${cleanFolder}/${filename}`;
-    return {
-      url: publicUrl,
-      publicId: `local_${cleanFolder}_${filename}`,
-    };
+      await writeFile(filePath, buffer);
+
+      const publicUrl = `/uploads/${cleanFolder}/${filename}`;
+      return {
+        url: publicUrl,
+        publicId: `local_${cleanFolder}_${filename}`,
+      };
+    } catch {
+      // Graceful fallback to Data URI if disk is not writable
+      const mimeType = file.type || "image/jpeg";
+      const base64 = buffer.toString("base64");
+      return {
+        url: `data:${mimeType};base64,${base64}`,
+        publicId: `data_${Date.now()}`,
+      };
+    }
   }
 
   // Production Cloudinary stream upload

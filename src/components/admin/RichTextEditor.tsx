@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
-import LinkExtension from "@tiptap/extension-link";
 import { Table, TableRow, TableCell, TableHeader } from "@tiptap/extension-table";
 
 interface RichTextEditorProps {
@@ -34,15 +33,15 @@ export default function RichTextEditor({
           keepMarks: true,
           keepAttributes: false,
         },
+        link: {
+          openOnClick: false,
+          HTMLAttributes: {
+            class: "text-blue-600 underline font-semibold",
+          },
+        },
       }),
       Placeholder.configure({
         placeholder,
-      }),
-      LinkExtension.configure({
-        openOnClick: false,
-        HTMLAttributes: {
-          class: "text-blue-600 underline font-semibold",
-        },
       }),
       Table.configure({
         resizable: true,

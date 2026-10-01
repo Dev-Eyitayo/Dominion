@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -400,7 +400,7 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
                     className="flex gap-3 p-2.5 rounded-sm border border-slate-200 bg-slate-50 items-start"
                   >
                     <div className="relative w-20 h-16 shrink-0 rounded-sm overflow-hidden bg-slate-200 border border-slate-300">
-                      <Image
+                      <SafeImage
                         src={item.url}
                         alt={item.caption || "Gallery photo"}
                         fill
@@ -436,7 +436,7 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
                     className="flex gap-3 p-2.5 rounded-sm border border-blue-200 bg-blue-50/40 items-start"
                   >
                     <div className="relative w-20 h-16 shrink-0 rounded-sm overflow-hidden bg-slate-200 border border-blue-300">
-                      <Image
+                      <SafeImage
                         src={staged.previewUrl}
                         alt="Staged photo"
                         fill
@@ -505,7 +505,7 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
 
             {imagePreview ? (
               <div className="relative aspect-video w-full rounded-sm overflow-hidden bg-slate-100 border border-slate-200 group">
-                <Image
+                <SafeImage
                   src={imagePreview}
                   alt="Project cover preview"
                   fill

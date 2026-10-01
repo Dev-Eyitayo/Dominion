@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -58,7 +58,7 @@ const mainNavItems = [
 
 const inboundNavItems = [
   {
-    label: "Client RFQs & Leads",
+    label: "Contact & Leads",
     href: "/admin/inquiries",
     exact: false,
     icon: (
@@ -72,6 +72,29 @@ const inboundNavItems = [
 export default function AdminNavLayout({ admin, children }: AdminNavProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      const target = event.target as HTMLElement;
+      if (!target.closest(".user-menu-container")) {
+        setUserMenuOpen(false);
+      }
+    }
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setUserMenuOpen(false);
+      }
+    }
+    if (userMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [userMenuOpen]);
 
   const isItemActive = (item: { href: string; exact: boolean }) => {
     if (item.exact) {
@@ -89,40 +112,105 @@ export default function AdminNavLayout({ admin, children }: AdminNavProps) {
     return "Admin Portal";
   };
 
+  const renderUserMenuDropdown = () => (
+    <div className="absolute right-0 top-full mt-2 w-72 bg-white rounded-sm border border-slate-200 py-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
+      {/* Admin Details Section */}
+      <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/50">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-[#15234E] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-2xs">
+            {admin.fullName ? admin.fullName.charAt(0).toUpperCase() : "A"}
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="text-xs font-bold text-slate-900 truncate">
+              {admin.fullName}
+            </div>
+            <div className="text-[11px] text-slate-500 truncate mt-0.5">
+              {admin.email}
+            </div>
+            <span className="inline-block bg-blue-50 text-blue-800 border border-blue-200 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-sm mt-1.5">
+              Role: {admin.role.replace("_", " ")}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Action Links */}
+      <div className="px-2 py-1.5 border-b border-slate-100">
+        <Link
+          href="/"
+          target="_blank"
+          onClick={() => setUserMenuOpen(false)}
+          className="flex items-center justify-between px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-700 rounded-sm transition"
+        >
+          <span className="flex items-center gap-2.5">
+            <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+            <span>View Public Website</span>
+          </span>
+          <span className="text-[10px] text-slate-400">↗</span>
+        </Link>
+      </div>
+
+      {/* Sign Out Action */}
+      <div className="p-2">
+        <form action={logoutAdminAction}>
+          <button
+            type="submit"
+            className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-red-600 hover:text-red-700 hover:bg-red-50 rounded-sm transition cursor-pointer"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span>Sign Out</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col lg:flex-row antialiased font-sans">
       {/* Mobile Sticky Header */}
-      <header className="lg:hidden sticky top-0 z-40 bg-[#0B1536] border-b border-[#1A2855] px-5 py-3.5 flex items-center justify-between shadow-xs">
+      <header className="lg:hidden sticky top-0 z-40 bg-white border-b border-slate-200 px-5 h-[76px] flex items-center justify-between shadow-xs">
         <div className="flex items-center gap-3">
           <button
             onClick={() => setMobileOpen(true)}
             aria-label="Open navigation menu"
-            className="p-2 -ml-2 rounded-sm text-slate-300 hover:text-white hover:bg-slate-800 transition cursor-pointer"
+            className="p-2 -ml-2 rounded-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition cursor-pointer"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
           <div className="flex items-center gap-2.5">
-            <div className="bg-white px-2.5 py-1.5 rounded-sm">
+            <Link href="/admin" className="flex items-center">
               <Image
                 src="/logo.png"
                 alt="Dominion Logo"
-                width={95}
-                height={22}
-                className="h-5 w-auto object-contain"
+                width={130}
+                height={32}
+                className="h-8 w-auto object-contain"
               />
-            </div>
-            <span className="text-[11px] font-semibold text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-sm border border-amber-400/20">
+            </Link>
+            <span className="text-[10px] font-semibold text-blue-900 bg-blue-50 px-2 py-0.5 rounded-sm border border-blue-200">
               CMS
             </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-sm bg-blue-600 text-white flex items-center justify-center font-bold text-xs">
+        {/* Mobile Avatar with Popover */}
+        <div className="relative user-menu-container">
+          <button
+            type="button"
+            onClick={() => setUserMenuOpen(!userMenuOpen)}
+            aria-label="User profile menu"
+            aria-expanded={userMenuOpen}
+            className="w-9 h-9 rounded-full bg-[#15234E] text-white flex items-center justify-center font-bold text-xs shadow-2xs hover:ring-2 hover:ring-blue-300 transition cursor-pointer"
+          >
             {admin.fullName ? admin.fullName.charAt(0).toUpperCase() : "A"}
-          </div>
+          </button>
+          {userMenuOpen && renderUserMenuDropdown()}
         </div>
       </header>
 
@@ -130,37 +218,48 @@ export default function AdminNavLayout({ admin, children }: AdminNavProps) {
       {mobileOpen && (
         <div
           onClick={() => setMobileOpen(false)}
-          className="fixed inset-0 bg-slate-950/60 z-40 lg:hidden backdrop-blur-xs transition-opacity"
+          className="fixed inset-0 bg-slate-950/40 z-40 lg:hidden backdrop-blur-xs transition-opacity"
           aria-hidden="true"
         />
       )}
 
       {/* Sidebar (Desktop Fixed + Mobile Slide-over) */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-[#0B1536] text-slate-300 border-r border-[#192750] flex flex-col justify-between transform transition-transform duration-200 ease-in-out lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-white text-slate-700 border-r border-slate-200 flex flex-col justify-between transform transition-transform duration-200 ease-in-out lg:translate-x-0 ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex flex-col h-full overflow-y-auto">
-          {/* Brand Header Section */}
-          <div className="p-6 border-b border-[#1A2855] bg-[#080F28]">
-            <div className="flex items-center justify-between">
+          {/* Brand Header Section - Matched in height with topbar header */}
+          <div className="h-[76px] px-5 border-b border-slate-200 bg-white flex items-center justify-between shrink-0">
+            <div className="flex items-center justify-between w-full">
               <Link
                 href="/admin"
-                className="block bg-white rounded-sm px-3.5 py-2.5 hover:bg-slate-100 transition shadow-2xs"
+                className="flex items-center"
               >
                 <Image
                   src="/logo.png"
                   alt="Dominion Integrated Electrical & Engineering"
-                  width={140}
-                  height={32}
-                  className="h-7 w-auto object-contain"
+                  width={150}
+                  height={36}
+                  className="h-9 w-auto object-contain"
                   priority
                 />
               </Link>
+
+              <div className="flex flex-col items-end text-right">
+                <span className="text-[11px] font-mono font-bold text-slate-700 tracking-tight">
+                  RC: 1655029
+                </span>
+                {/* <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  CMS Active
+                </span> */}
+              </div>
+
               <button
                 onClick={() => setMobileOpen(false)}
-                className="lg:hidden p-1.5 rounded-sm text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
+                className="lg:hidden ml-2 p-1.5 rounded-sm text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition cursor-pointer"
                 aria-label="Close navigation"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -168,22 +267,14 @@ export default function AdminNavLayout({ admin, children }: AdminNavProps) {
                 </svg>
               </button>
             </div>
-
-            <div className="mt-4 flex items-center justify-between text-xs text-slate-400 font-medium">
-              <span className="tracking-wide">RC: 1655029</span>
-              <span className="inline-flex items-center gap-1.5 text-emerald-400">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                CMS Active
-              </span>
-            </div>
           </div>
 
-          {/* Navigation Items with Generous Spacing */}
-          <div className="px-4 py-6 flex-1 space-y-8">
+          {/* Navigation Items */}
+          <div className="px-4 py-5 flex-1 space-y-7">
             {/* Core Section */}
             <div>
-              <div className="px-3 pb-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                Core Directories
+              <div className="px-3 pb-2.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                Main  
               </div>
               <nav className="space-y-1.5">
                 {mainNavItems.map((item) => {
@@ -195,14 +286,14 @@ export default function AdminNavLayout({ admin, children }: AdminNavProps) {
                       onClick={() => setMobileOpen(false)}
                       className={`group relative flex items-center gap-3.5 px-3.5 py-2.5 rounded-sm text-xs font-medium transition-all ${
                         active
-                          ? "bg-[#15234E] text-white font-semibold shadow-inner"
-                          : "text-slate-300 hover:bg-[#121E43] hover:text-white"
+                          ? "bg-[#15234E] text-white font-semibold shadow-xs"
+                          : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                       }`}
                     >
                       {active && (
                         <span className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-amber-400 rounded-r-xs" />
                       )}
-                      <span className={active ? "text-amber-400" : "text-slate-400 group-hover:text-slate-200"}>
+                      <span className={active ? "text-amber-400" : "text-slate-400 group-hover:text-slate-600"}>
                         {item.icon}
                       </span>
                       <span>{item.label}</span>
@@ -214,8 +305,8 @@ export default function AdminNavLayout({ admin, children }: AdminNavProps) {
 
             {/* Inbound Leads Section */}
             <div>
-              <div className="px-3 pb-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                Inbound &amp; Communications
+              <div className="px-3 pb-2.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                Contacts
               </div>
               <nav className="space-y-1.5">
                 {inboundNavItems.map((item) => {
@@ -227,14 +318,14 @@ export default function AdminNavLayout({ admin, children }: AdminNavProps) {
                       onClick={() => setMobileOpen(false)}
                       className={`group relative flex items-center gap-3.5 px-3.5 py-2.5 rounded-sm text-xs font-medium transition-all ${
                         active
-                          ? "bg-[#15234E] text-white font-semibold shadow-inner"
-                          : "text-slate-300 hover:bg-[#121E43] hover:text-white"
+                          ? "bg-[#15234E] text-white font-semibold shadow-xs"
+                          : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                       }`}
                     >
                       {active && (
                         <span className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-amber-400 rounded-r-xs" />
                       )}
-                      <span className={active ? "text-amber-400" : "text-slate-400 group-hover:text-slate-200"}>
+                      <span className={active ? "text-amber-400" : "text-slate-400 group-hover:text-slate-600"}>
                         {item.icon}
                       </span>
                       <span>{item.label}</span>
@@ -245,57 +336,43 @@ export default function AdminNavLayout({ admin, children }: AdminNavProps) {
             </div>
           </div>
 
-          {/* Sidebar Footer: User Details & Actions */}
-          <div className="p-4 border-t border-[#1A2855] bg-[#070D22] space-y-3">
-            <Link
-              href="/"
-              target="_blank"
-              className="flex items-center justify-between w-full px-3.5 py-2 rounded-sm bg-[#121E43] hover:bg-[#1A2A5C] text-slate-200 text-xs font-medium border border-[#1E2F63] transition"
-            >
-              <span className="flex items-center gap-2">
-                <svg className="w-3.5 h-3.5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          {/* Sidebar Footer: Signed-in User Info & Live Site Link */}
+          <div className="p-3.5 border-t border-slate-200 bg-slate-50/60 shrink-0">
+            <div className="flex items-center justify-between gap-2 p-2.5 rounded-sm bg-white border border-slate-200 shadow-2xs">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-8 h-8 rounded-full bg-[#15234E] text-white flex items-center justify-center font-bold text-xs shrink-0 ring-1 ring-slate-200">
+                  {admin.fullName ? admin.fullName.charAt(0).toUpperCase() : "A"}
+                </div>
+                <div className="min-w-0">
+                  <div className="text-xs font-semibold text-slate-900 truncate leading-tight">
+                    {admin.fullName}
+                  </div>
+                  <div className="text-[10px] text-slate-500 capitalize truncate mt-0.5 font-medium">
+                    {admin.role.replace("_", " ")}
+                  </div>
+                </div>
+              </div>
+
+              <Link
+                href="/"
+                target="_blank"
+                title="View Live Website"
+                aria-label="View Live Website"
+                className="p-1.5 rounded-sm text-slate-400 hover:text-blue-700 hover:bg-slate-100 transition shrink-0"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
-                <span>Live Website</span>
-              </span>
-              <span className="text-[10px] text-slate-400">↗</span>
-            </Link>
-
-            {/* Admin Profile Row */}
-            <div className="flex items-center gap-3 p-2.5 rounded-sm bg-[#0E1838] border border-[#182650]">
-              <div className="w-8 h-8 rounded-sm bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 ring-1 ring-amber-400/30">
-                {admin.fullName ? admin.fullName.charAt(0).toUpperCase() : "A"}
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="text-xs font-semibold text-white truncate leading-tight">
-                  {admin.fullName}
-                </div>
-                <div className="text-[11px] text-slate-400 truncate mt-0.5">
-                  {admin.email}
-                </div>
-              </div>
+              </Link>
             </div>
-
-            {/* Sign Out Action */}
-            <form action={logoutAdminAction}>
-              <button
-                type="submit"
-                className="w-full flex items-center justify-center gap-2 px-3.5 py-2 rounded-sm text-xs font-medium text-red-300 hover:text-red-200 hover:bg-red-500/10 border border-red-500/20 transition cursor-pointer"
-              >
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
-                <span>Sign Out</span>
-              </button>
-            </form>
           </div>
         </div>
       </aside>
 
       {/* Main Viewport Container */}
       <div className="flex-1 flex flex-col min-w-0 lg:pl-72">
-        {/* Desktop Top Header Bar */}
-        <header className="hidden lg:flex sticky top-0 z-30 bg-white border-b border-slate-200 px-8 py-4 items-center justify-between">
+        {/* Desktop Top Header Bar - Matched height with sidebar brand header */}
+        <header className="hidden lg:flex sticky top-0 z-30 bg-white border-b border-slate-200 px-8 h-[76px] items-center justify-between">
           <div>
             <h1 className="text-lg font-bold text-slate-900 tracking-tight">
               {getPageTitle()}
@@ -303,26 +380,49 @@ export default function AdminNavLayout({ admin, children }: AdminNavProps) {
           </div>
 
           <div className="flex items-center gap-4">
-            <Link
+            {/* <Link
               href="/"
               target="_blank"
               className="text-xs font-medium text-slate-600 hover:text-blue-700 flex items-center gap-1 transition"
             >
-              <span>View Public Portal ↗</span>
-            </Link>
+              <span>View Public Website ↗</span>
+            </Link> */}
 
-            <div className="h-4 w-px bg-slate-200" />
+            {/* <div className="h-4 w-px bg-slate-200" /> */}
 
-            <div className="flex items-center gap-2.5 pl-1">
-              <div className="w-8 h-8 rounded-sm bg-blue-700 text-white flex items-center justify-center font-bold text-xs ring-1 ring-slate-200">
-                {admin.fullName ? admin.fullName.charAt(0).toUpperCase() : "A"}
-              </div>
-              <div className="text-left">
-                <div className="text-xs font-bold text-slate-900 leading-none">{admin.fullName}</div>
-                <div className="text-[10px] text-slate-500 mt-1 capitalize font-medium">
-                  {admin.role.replace("_", " ")}
+            {/* Admin Profile Dropdown Trigger */}
+            <div className="relative user-menu-container">
+              <button
+                type="button"
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                aria-label="User profile options"
+                aria-expanded={userMenuOpen}
+                className="flex items-center gap-3 p-1.5 rounded-md hover:bg-slate-100 transition cursor-pointer select-none group"
+              >
+                <div className="w-9 h-9 rounded-full bg-[#15234E] text-white flex items-center justify-center font-bold text-xs shadow-2xs ring-2 ring-slate-100 group-hover:ring-blue-200 transition">
+                  {admin.fullName ? admin.fullName.charAt(0).toUpperCase() : "A"}
                 </div>
-              </div>
+                <div className="text-left">
+                  <div className="text-xs font-bold text-slate-900 leading-none flex items-center gap-1">
+                    <span>{admin.fullName}</span>
+                    <svg
+                      className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-150 ${
+                        userMenuOpen ? "rotate-180" : ""
+                      }`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                  <div className="text-[10px] text-slate-500 mt-1 capitalize font-medium">
+                    {admin.role.replace("_", " ")}
+                  </div>
+                </div>
+              </button>
+
+              {userMenuOpen && renderUserMenuDropdown()}
             </div>
           </div>
         </header>
