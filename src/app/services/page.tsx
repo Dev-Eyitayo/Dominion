@@ -39,12 +39,87 @@ const CORNER_BADGE_MAP: Record<string, string> = {
 
 const ROTATION_CLASSES = ["-rotate-6", "rotate-3", "-rotate-3", "rotate-6"];
 
+const DEFAULT_SERVICES = [
+  {
+    id: "default-1",
+    title: "Civil Engineering & Building Construction",
+    slug: "civil",
+    categoryBadge: "STRUCTURAL & HEAVY CIVIL",
+    summary:
+      "Dominion executes complex structural, commercial, and residential projects with strict adherence to British and Nigerian standard codes of practice. Our civil division integrates soil mechanics, structural analysis, and certified site management.",
+    deliverables: [
+      "Commercial & Industrial Edifices",
+      "Drainage Channels & Culverts",
+      "Road Pavements & Kerbing",
+      "Structural Renovation & Retrofit",
+    ],
+    featuredImageUrl: "/images/projects/FB_IMG_1782343190705.jpg",
+    displayOrder: 1,
+  },
+  {
+    id: "default-2",
+    title: "Electrical Power & Substation Engineering",
+    slug: "electrical",
+    categoryBadge: "HIGH & LOW VOLTAGE GRID",
+    summary:
+      "Specialized high-voltage overhead distribution (11kV / 33kV), step-down transformer injection substations, industrial power cabling, switchgear installation, and rural electrification networks.",
+    deliverables: [
+      "11kV & 33kV HT Line Stringing",
+      "Transformer Substation Mounting",
+      "Industrial Switchgear & Panels",
+      "Earthing & Surge Protection Systems",
+    ],
+    featuredImageUrl: "/images/precast/pole-transport.jpg",
+    displayOrder: 2,
+  },
+  {
+    id: "default-3",
+    title: "Solar Renewable Energy & IT Solutions",
+    slug: "solar",
+    categoryBadge: "CLEAN ENERGY & AUTOMATION",
+    summary:
+      "Custom engineered commercial solar mini-grids, battery energy storage systems (BESS), solar-powered highway street lighting schemes, and smart industrial automation networks designed to slash operational diesel expenses.",
+    deliverables: [
+      "Commercial Solar Mini-Grids",
+      "Highway Solar Street Lighting",
+      "Industrial Lithium BESS Arrays",
+      "Remote Telemetry & Monitoring",
+    ],
+    featuredImageUrl: "/images/services/solar-installation.jpg",
+    displayOrder: 3,
+  },
+  {
+    id: "default-4",
+    title: "Consultancy, BoQ & Heavy Equipment Leasing",
+    slug: "consultancy",
+    categoryBadge: "TECHNICAL ADVISORY & MACHINERY",
+    summary:
+      "Comprehensive Bill of Quantities (BoQ) drafting, feasibility studies, project management consultancy, and direct leasing of heavy road rollers, compactors, concrete batchers, and HIAB pole crane trucks.",
+    deliverables: [
+      "Detailed BoQ & Cost Estimation",
+      "Vibratory Soil Compactors",
+      "HIAB Crane Trucks for Pole Delivery",
+      "Technical Site Audits",
+    ],
+    featuredImageUrl: "/images/projects/FB_IMG_1782363598182.jpg",
+    displayOrder: 4,
+  },
+];
+
 export default async function ServicesPage() {
-  // Query services ordered by displayOrder
-  const services = await db
-    .select()
-    .from(engineeringServices)
-    .orderBy(asc(engineeringServices.displayOrder));
+  let services: any[] = [];
+  try {
+    services = await db
+      .select()
+      .from(engineeringServices)
+      .orderBy(asc(engineeringServices.displayOrder));
+  } catch (error) {
+    console.error("ServicesPage database query failed, using static fallback:", error);
+  }
+
+  if (services.length === 0) {
+    services = DEFAULT_SERVICES;
+  }
 
   return (
     <div className="bg-white text-slate-900 font-sans antialiased">
@@ -85,7 +160,7 @@ export default async function ServicesPage() {
               BUTTON_LABEL_MAP[service.slug] || "DISCUSS ENGINEERING SCOPE";
             const cornerBadge =
               CORNER_BADGE_MAP[service.slug] || `DIVISION SPEC ${numberBadge}`;
-            const deliverables = service.deliverables || [];
+            const deliverables = (service.deliverables || []) as string[];
 
             return (
               <div

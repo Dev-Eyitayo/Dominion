@@ -14,6 +14,7 @@ const conn = globalForDb.conn ?? postgres(connectionString, {
   max: 10,
   idle_timeout: 20,
   connect_timeout: 10,
+  prepare: false, // Required for Neon PgBouncer connection pooling
 });
 
 if (process.env.NODE_ENV !== "production") {

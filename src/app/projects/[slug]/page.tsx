@@ -14,20 +14,128 @@ interface ProjectPageProps {
   }>;
 }
 
+const STATIC_PROJECTS = [
+  {
+    title: "Housing Estate Multi-Structure Development",
+    slug: "housing-estate-multi-structure-development",
+    category: "civil",
+    tag: "CIVIL & BUILDING",
+    location: "Oyo State, South-West Nigeria",
+    client: "Private Residential Consortium",
+    summary:
+      "Large-scale estate civil blockwork, substructure raft foundation casting, reinforced concrete decking, and structural framing.",
+    contentHtml: `
+      <h2>Project Overview & Engineering Scope</h2>
+      <p>Dominion Integrated Electrical & Engineering Limited was contracted as principal structural and civil engineering contractor for a multi-unit residential estate development in Oyo State. The project required comprehensive substructure and superstructure engineering across multiple residential blocks.</p>
+      <h3>Key Engineering Deliverables</h3>
+      <ul>
+        <li>Geotechnical site investigation, excavation, and high-load raft foundation construction using Grade C35 structural concrete.</li>
+        <li>Reinforced concrete columns, ring beams, and monolithic floor slab decking conforming to BS 8110 standards.</li>
+        <li>Precision high-density sand-cement blockwork masonry and internal load-bearing partitions.</li>
+        <li>Integrated plumbing risers, underground electrical conduits, and perimeter stormwater drainage canals.</li>
+      </ul>
+      <h3>Quality Assurance & Standards</h3>
+      <p>All aggregate batching, slump testing, and 28-day concrete cube compressive strength tests were executed under strict quality control protocols, achieving zero structural non-conformance.</p>
+    `,
+    featuredImageUrl: "/images/projects/FB_IMG_1782343190705.jpg",
+    galleryImages: [
+      {
+        url: "/images/projects/FB_IMG_1782343190705.jpg",
+        caption: "Substructure casting and structural column framing",
+      },
+      {
+        url: "/images/projects/FB_IMG_1782363996414.jpg",
+        caption: "Superstructure assembly and precast architectural work",
+      },
+    ],
+    status: "completed",
+    isFeatured: true,
+  },
+  {
+    title: "Highway Earthworks & Vibratory Compaction",
+    slug: "highway-earthworks-vibratory-compaction",
+    category: "civil",
+    tag: "HIGHWAY & ROADS",
+    location: "Regional Transport Corridor, South-West Nigeria",
+    client: "State Ministry of Works & Infrastructure",
+    summary:
+      "Heavy soil stabilization, sub-base gravel leveling, and heavy-duty roller compaction operations.",
+    contentHtml: `
+      <h2>Earthworks & Sub-Base Engineering</h2>
+      <p>Execution of heavy corridor earthmoving, cut-and-fill balancing, subgrade soil stabilization, and high-amplitude vibratory roller compaction along a critical regional highway arterial.</p>
+      <h3>Technical Execution Stages</h3>
+      <ul>
+        <li>Clearing, topsoil stripping, and corridor grading with heavy motor graders and CAT bulldozers.</li>
+        <li>Placement of approved lateritic sub-base fill material in compacted 150mm layers.</li>
+        <li>Field dry density (FDD) testing and nuclear moisture-density gauge verification achieving >98% Modified AASHTO compaction.</li>
+        <li>Precision cross-fall slope preparation for optimal highway surface drainage.</li>
+      </ul>
+    `,
+    featuredImageUrl: "/images/projects/FB_IMG_1782363598182.jpg",
+    galleryImages: [
+      {
+        url: "/images/projects/FB_IMG_1782363598182.jpg",
+        caption: "Vibratory compaction operations along the highway alignment",
+      },
+    ],
+    status: "completed",
+    isFeatured: true,
+  },
+  {
+    title: "Asphalt Highway Paving & Roadway Kerbing",
+    slug: "asphalt-highway-paving-roadway-kerbing",
+    category: "civil",
+    tag: "ASPHALT & PAVING",
+    location: "South-West Trunk Road Corridor",
+    client: "Highway Development Authority",
+    summary:
+      "Bituminous asphalt wearing course application, shoulder grading, and precision precast kerb alignment.",
+    contentHtml: `
+      <h2>Pavement Construction & Kerb Alignment</h2>
+      <p>Delivery of hot-mix asphalt concrete wearing course laying, bitumen prime coat spraying, and hydraulically pressed road kerb installation on an inter-city highway.</p>
+    `,
+    featuredImageUrl: "/images/projects/FB_IMG_1782363608838.jpg",
+    galleryImages: [
+      {
+        url: "/images/projects/FB_IMG_1782363608838.jpg",
+        caption: "Asphalt wearing course compaction and roadway alignment",
+      },
+    ],
+    status: "completed",
+    isFeatured: true,
+  },
+];
+
 export async function generateStaticParams() {
-  const allProjects = await db.select({ slug: projects.slug }).from(projects);
-  return allProjects.map((p) => ({ slug: p.slug }));
+  try {
+    const allProjects = await db.select({ slug: projects.slug }).from(projects);
+    if (allProjects.length > 0) {
+      return allProjects.map((p) => ({ slug: p.slug }));
+    }
+  } catch (error) {
+    console.error("generateStaticParams db error:", error);
+  }
+  return STATIC_PROJECTS.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const projectList = await db
-    .select()
-    .from(projects)
-    .where(eq(projects.slug, slug))
-    .limit(1);
+  let project: any = null;
+  try {
+    const projectList = await db
+      .select()
+      .from(projects)
+      .where(eq(projects.slug, slug))
+      .limit(1);
+    project = projectList[0];
+  } catch (error) {
+    console.error("generateMetadata db error:", error);
+  }
 
-  const project = projectList[0];
+  if (!project) {
+    project = STATIC_PROJECTS.find((p) => p.slug === slug);
+  }
+
   if (!project) {
     return {
       title: "Project Not Found | Dominion Engineering",
@@ -42,13 +150,23 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 
 export default async function PublicProjectDetailPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const projectList = await db
-    .select()
-    .from(projects)
-    .where(eq(projects.slug, slug))
-    .limit(1);
+  let project: any = null;
 
-  const project = projectList[0];
+  try {
+    const projectList = await db
+      .select()
+      .from(projects)
+      .where(eq(projects.slug, slug))
+      .limit(1);
+    project = projectList[0];
+  } catch (error) {
+    console.error("PublicProjectDetailPage db error:", error);
+  }
+
+  if (!project) {
+    project = STATIC_PROJECTS.find((p) => p.slug === slug);
+  }
+
   if (!project) {
     notFound();
   }
@@ -140,7 +258,7 @@ export default async function PublicProjectDetailPage({ params }: ProjectPagePro
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {project.galleryImages.map((img, idx) => (
+                    {(project.galleryImages as Array<{ url: string; caption?: string }>).map((img, idx) => (
                       <div
                         key={idx}
                         className="bg-slate-50 border border-slate-200 rounded-sm overflow-hidden flex flex-col"

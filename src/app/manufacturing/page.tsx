@@ -43,13 +43,92 @@ const BUTTON_LABEL_MAP: Record<string, string> = {
 
 const ROTATION_CLASSES = ["-rotate-6", "rotate-3", "-rotate-3", "rotate-6"];
 
+const DEFAULT_PRODUCTS = [
+  {
+    id: "default-prod-1",
+    title: "Concrete Electric Poles (LT & HT)",
+    slug: "concrete-electric-poles-lt-ht",
+    category: "poles",
+    technicalSpecs: {
+      "8.5m LT Poles": "400V Distribution",
+      "10.0m HT Poles": "11kV Power Lines",
+      "11.0m HT Poles": "33kV Transmission",
+      "Reinforcement": "Ribbed Rebar Cages",
+    },
+    descriptionHtml:
+      "<p>Engineered with high-tensile steel reinforcing cages and precision machine vibration to eliminate voids. Designed to meet DisCo standards for Low Tension (LT) and High Tension (HT) overhead electrical grids.</p>",
+    imageUrl: "/images/precast/electric-poles.jpg",
+    isAvailable: true,
+    displayOrder: 1,
+  },
+  {
+    id: "default-prod-2",
+    title: "Precast Stay Blocks & Anchor Slabs",
+    slug: "precast-stay-blocks-anchor-slabs",
+    category: "blocks",
+    technicalSpecs: {
+      "High-Density Mix": "C35/C40 Concrete Grade",
+      "Durability": "Anti-Corrosion Additives",
+      "Anchor System": "Guy Wire Anchor Eye Bolts",
+      "Applications": "Substation Foundation Pads",
+    },
+    descriptionHtml:
+      "<p>Heavy-density precast concrete stay blocks engineered to provide solid ground tension anchorage for overhead electrical line turns, terminal angle poles, and transformer substations.</p>",
+    imageUrl: "/images/precast/stay-blocks.jpg",
+    isAvailable: true,
+    displayOrder: 2,
+  },
+  {
+    id: "default-prod-3",
+    title: "Road Kerbs, Slabs & Drainage Channels",
+    slug: "road-kerbs-slabs-drainage-channels",
+    category: "kerbs",
+    technicalSpecs: {
+      "Highway Kerbs": "Standard 500x300mm Profile",
+      "Traffic Protection": "Barrier & Mountable Kerbs",
+      "Culvert Covers": "Heavy-Load Reinforced Slabs",
+      "Drainage Moulds": "Stormwater U-Channels",
+    },
+    descriptionHtml:
+      "<p>Durable precast road kerbs, culvert cover slabs, and U-drain channels manufactured for estate roads, municipal corridors, and industrial access pavements with high impact resistance.</p>",
+    imageUrl: "/images/precast/concrete-yard.jpg",
+    isAvailable: true,
+    displayOrder: 3,
+  },
+  {
+    id: "default-prod-4",
+    title: "HIAB Crane Logistics & Custom Moulds",
+    slug: "hiab-crane-logistics-custom-moulds",
+    category: "custom",
+    technicalSpecs: {
+      "Fleet Operations": "HIAB Crane Trucks On-Site",
+      "Custom Fabrication": "Bespoke Architectural Casts",
+      "Supply Chain": "Direct Factory Dispatch",
+      "Commercial Terms": "Bulk Contractor Pricing",
+    },
+    descriptionHtml:
+      "<p>End-to-end transport dispatch with Dominion HIAB crane trucks for safe offloading, direct hole planting, modular sewer manholes, and bespoke architectural elements.</p>",
+    imageUrl: "/images/precast/pole-transport.jpg",
+    isAvailable: true,
+    displayOrder: 4,
+  },
+];
+
 export default async function ManufacturingPage() {
-  // Query active products ordered by displayOrder
-  const products = await db
-    .select()
-    .from(manufacturingProducts)
-    .where(eq(manufacturingProducts.isAvailable, true))
-    .orderBy(asc(manufacturingProducts.displayOrder));
+  let products: any[] = [];
+  try {
+    products = await db
+      .select()
+      .from(manufacturingProducts)
+      .where(eq(manufacturingProducts.isAvailable, true))
+      .orderBy(asc(manufacturingProducts.displayOrder));
+  } catch (error) {
+    console.error("ManufacturingPage database query failed, using static fallback:", error);
+  }
+
+  if (products.length === 0) {
+    products = DEFAULT_PRODUCTS;
+  }
 
   return (
     <div className="bg-white text-slate-900 font-sans antialiased">
@@ -91,7 +170,9 @@ export default async function ManufacturingPage() {
             const buttonLabel =
               BUTTON_LABEL_MAP[product.category] || "REQUEST QUOTATION";
             const cornerBadge = `PRECAST SPEC ${numberBadge}`;
-            const specsEntries = Object.entries(product.technicalSpecs || {});
+            const specsEntries = Object.entries(
+              (product.technicalSpecs || {}) as Record<string, string>
+            );
 
             return (
               <div
@@ -132,7 +213,7 @@ export default async function ManufacturingPage() {
                           key={specIdx}
                           className="p-3 bg-slate-50 border border-slate-200"
                         >
-                          <strong>{specKey}:</strong> {specVal}
+                          <strong>{specKey}:</strong> {String(specVal)}
                         </div>
                       ))}
                     </div>

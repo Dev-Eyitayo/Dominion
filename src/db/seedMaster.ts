@@ -1,4 +1,6 @@
 import postgres from "postgres";
+import { drizzle } from "drizzle-orm/postgres-js";
+import { migrate } from "drizzle-orm/postgres-js/migrator";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import * as path from "path";
@@ -544,46 +546,31 @@ export async function runMasterSeed() {
   console.log("=======================================================");
   console.log(`Connecting to: ${connectionString.replace(/:[^:@]*@/, ":****@")}\n`);
 
-  const sql = postgres(connectionString, { max: 1 });
+  const sql = postgres(connectionString, {
+    max: 1,
+    prepare: false, // Required for Neon PgBouncer connection pooler
+    connect_timeout: 15,
+  });
 
   try {
     // -------------------------------------------------------------------------
-    // Step 1: Run SQL Schema Migrations (if drizzle SQL exists)
+    // Step 1: Apply database schema migrations
     // -------------------------------------------------------------------------
-    console.log("📦 Step 1: Verifying & applying database schema...");
-    const migrationPath = path.join(
-      process.cwd(),
-      "drizzle/0000_true_carmella_unuscione.sql"
-    );
-
-    if (fs.existsSync(migrationPath)) {
-      const sqlFile = fs.readFileSync(migrationPath, "utf-8");
-      const statements = sqlFile
-        .split("--> statement-breakpoint")
-        .map((s) => s.trim())
-        .filter((s) => s.length > 0);
-
-      for (const statement of statements) {
-        try {
-          await sql.unsafe(statement);
-        } catch (err: any) {
-          // Ignore duplicate enum / table / column errors when re-running
-          if (
-            err.code === "42710" || // duplicate object (type)
-            err.code === "42P07" || // table already exists
-            err.code === "42701" || // column already exists
-            err.message?.includes("already exists")
-          ) {
-            // Already created
-          } else {
-            console.warn("Schema notice:", err.message);
-          }
-        }
-      }
-      console.log("   ✓ Database tables, enums, and indexes verified.");
-    } else {
-      console.log("   ⚠️ Drizzle migration file not found, skipping DDL step.");
+    console.log("npm run db:reset📦 Step 1: Applying database schema migrations...");
+    const db = drizzle(sql);
+    try {
+      await migrate(db, { migrationsFolder: path.join(process.cwd(), "drizzle") });
+    } catch (migErr: any) {
+      console.log("   ⚠️ Partial schema detected from earlier runs. Cleaning public schema...");
+      await sql.unsafe(`
+        DROP SCHEMA IF EXISTS public CASCADE;
+        CREATE SCHEMA public;
+        GRANT ALL ON SCHEMA public TO public;
+      `);
+      console.log("   ✓ Public schema refreshed. Reapplying clean migrations...");
+      await migrate(db, { migrationsFolder: path.join(process.cwd(), "drizzle") });
     }
+    console.log("   ✓ Database tables, enums, and indexes verified/created.");
 
     // -------------------------------------------------------------------------
     // Step 2: Seed / Upsert Super Admin User from Environment Variables
@@ -659,7 +646,7 @@ export async function runMasterSeed() {
           ${service.slug},
           ${service.categoryBadge},
           ${service.summary},
-          ${sql.json(service.deliverables)},
+          ${JSON.stringify(service.deliverables)},
           ${service.featuredImageUrl},
           ${service.displayOrder},
           NOW()
@@ -696,7 +683,7 @@ export async function runMasterSeed() {
           ${prod.title},
           ${prod.slug},
           ${prod.category},
-          ${sql.json(prod.technicalSpecs)},
+          ${JSON.stringify(prod.technicalSpecs)},
           ${prod.descriptionHtml},
           ${prod.imageUrl},
           ${prod.isAvailable},
@@ -747,7 +734,7 @@ export async function runMasterSeed() {
           ${p.summary},
           ${p.contentHtml},
           ${p.featuredImageUrl},
-          ${sql.json(p.galleryImages)},
+          ${JSON.stringify(p.galleryImages)},
           ${p.status},
           ${p.isFeatured},
           ${p.displayOrder},

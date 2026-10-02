@@ -11,6 +11,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
+    "db:reset": "npx tsx src/db/reset.ts",
     "db:seed": "npx tsx src/db/seedMaster.ts"
   },
   "dependencies": {
