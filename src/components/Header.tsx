@@ -30,9 +30,9 @@ export default function Header() {
             <Image
               src="/logo.png"
               alt="Dominion Integrated Electrical & Engineering Limited"
-              width={260}
-              height={85}
-              className="h-14 sm:h-12 lg:h-11 w-auto max-w-[220px] sm:max-w-none object-contain"
+              width={280}
+              height={90}
+              className="h-16 sm:h-14 lg:h-11 w-auto max-w-[260px] sm:max-w-none object-contain transition-all"
               priority
             />
           </Link>

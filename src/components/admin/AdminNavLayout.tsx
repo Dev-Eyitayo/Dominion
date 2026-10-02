@@ -188,9 +188,9 @@ export default function AdminNavLayout({ admin, children }: AdminNavProps) {
               <Image
                 src="/logo.png"
                 alt="Dominion Logo"
-                width={130}
-                height={32}
-                className="h-8 w-auto object-contain"
+                width={160}
+                height={48}
+                className="h-11 sm:h-12 w-auto object-contain"
               />
             </Link>
             <span className="text-[10px] font-semibold text-blue-900 bg-blue-50 px-2 py-0.5 rounded-sm border border-blue-200">
