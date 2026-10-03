@@ -9,14 +9,21 @@ import ProjectsSection from "@/components/ProjectsSection";
 import ConsultationForm from "@/components/ConsultationForm";
 import MapLocationSection from "@/components/MapLocationSection";
 import TestimonialSection from "@/components/TestimonialSection";
-import { ShieldCheckIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { ShieldCheckIcon, EyeIcon } from "@heroicons/react/24/outline";
+import { getHeroSlides, getFacilityContacts } from "@/lib/settings";
 
+export const revalidate = 60; // ISR 60s
 
-export default function Home() {
+export default async function Home() {
+  const [heroSlides, facilityContacts] = await Promise.all([
+    getHeroSlides(),
+    getFacilityContacts(),
+  ]);
+
   return (
     <>
       {/* Hero Banner with Zoom Carousel & Gradient Overlay */}
-      <Hero />
+      <Hero slides={heroSlides} />
 
       {/* Animated Stats & Trust Bar */}
       {/* <StatsBar /> */}
@@ -31,7 +38,7 @@ export default function Home() {
             {/* Our Vision */}
             <div className="flex flex-col items-center text-center px-4 sm:px-8 pb-10 md:pb-0">
               <div className="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center text-[#D99B26] mb-4">
-                <SparklesIcon className="w-7 h-7" />
+                <EyeIcon className="w-7 h-7" />
               </div>
               <h3 className="text-[#0F2B82] font-bold text-xs sm:text-sm uppercase tracking-widest font-mono mb-3">
                 Our Vision
@@ -79,7 +86,7 @@ export default function Home() {
       <ConsultationForm />
 
       {/* Operational Bases & Facility Locations */}
-      <MapLocationSection />
+      <MapLocationSection facilityContacts={facilityContacts} />
     </>
   );
 }

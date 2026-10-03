@@ -1,18 +1,25 @@
 "use client";
 
-import {
-  MapPinIcon,
-  PhoneIcon,
-  EnvelopeIcon,
-  BuildingStorefrontIcon,
-  BuildingOffice2Icon,
-} from "@heroicons/react/24/outline";
+import { FacilityContactData, DEFAULT_FACILITY_CONTACTS } from "@/lib/settings/types";
 
-export default function MapLocationSection() {
+interface MapLocationSectionProps {
+  facilityContacts?: FacilityContactData;
+}
+
+export default function MapLocationSection({
+  facilityContacts = DEFAULT_FACILITY_CONTACTS,
+}: MapLocationSectionProps) {
+  const data = facilityContacts || DEFAULT_FACILITY_CONTACTS;
+  const headOffice = data.headOffice || DEFAULT_FACILITY_CONTACTS.headOffice;
+  const factory = data.factory || DEFAULT_FACILITY_CONTACTS.factory;
+
+  const phoneText = headOffice.hotline2
+    ? `${headOffice.hotline1} / ${headOffice.hotline2}`
+    : headOffice.hotline1;
+
   return (
     <section id="contact" className="relative bg-white overflow-hidden py-24 border-t border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         {/* Section Header */}
         <div className="mb-16">
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#0F2B82] block mb-2">
@@ -25,25 +32,37 @@ export default function MapLocationSection() {
 
         {/* Dual Facility Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          
           {/* Admin Office */}
           <div className="group relative bg-white p-8 pt-14 border border-slate-200 hover:bg-[#0F2B82] hover:border-[#0F2B82] transition-all duration-300">
             <div className="absolute -top-6 left-8 w-12 h-12 rounded-full bg-slate-100 group-hover:bg-[#D99B26] flex items-center justify-center -rotate-6 group-hover:rotate-0 transition-transform duration-300">
               <span className="font-mono text-sm font-bold text-slate-900 group-hover:text-slate-950">01</span>
             </div>
             <span className="text-[11px] font-mono uppercase tracking-widest text-slate-400 group-hover:text-blue-200 block mb-2">
-              HEAD OFFICE
+              {headOffice.tag || "HEAD OFFICE"}
             </span>
             <h3 className="text-2xl font-bold text-slate-900 group-hover:text-white mb-4">
-              Isokun Administrative Office
+              {headOffice.title}
             </h3>
             <p className="text-slate-600 group-hover:text-slate-200 text-sm leading-relaxed mb-6">
-              No. 24, Dominion Office, BCT Complex, Isokun, Oyo–Iseyin Road, Oyo State, Nigeria.
+              {headOffice.address}
             </p>
             <div className="p-6 bg-slate-50 group-hover:bg-white/10 font-mono text-xs space-y-2 text-slate-800 group-hover:text-white">
-              <div><strong className="text-slate-900 group-hover:text-white">Desk Line:</strong> 08101831076 / 07067315948</div>
-              <div><strong className="text-slate-900 group-hover:text-white">Email:</strong> dominionltd01@gmail.com</div>
-              <div><strong className="text-slate-900 group-hover:text-white">Hours:</strong> Mon – Sat: 8:00 AM – 6:00 PM</div>
+              <div>
+                <strong className="text-slate-900 group-hover:text-white">Desk Line:</strong>{" "}
+                <a href={`tel:${headOffice.hotline1}`} className="hover:underline">
+                  {phoneText}
+                </a>
+              </div>
+              <div>
+                <strong className="text-slate-900 group-hover:text-white">Email:</strong>{" "}
+                <a href={`mailto:${headOffice.email}`} className="hover:underline">
+                  {headOffice.email}
+                </a>
+              </div>
+              <div>
+                <strong className="text-slate-900 group-hover:text-white">Hours:</strong>{" "}
+                {headOffice.hours}
+              </div>
             </div>
           </div>
 
@@ -53,21 +72,31 @@ export default function MapLocationSection() {
               <span className="font-mono text-sm font-bold text-slate-900 group-hover:text-slate-950">02</span>
             </div>
             <span className="text-[11px] font-mono uppercase tracking-widest text-slate-400 group-hover:text-blue-200 block mb-2">
-              MANUFACTURING FACILITY
+              {factory.tag || "MANUFACTURING FACILITY"}
             </span>
             <h3 className="text-2xl font-bold text-slate-900 group-hover:text-white mb-4">
-              Oyo–Ogbomoso Express Plant
+              {factory.title}
             </h3>
             <p className="text-slate-600 group-hover:text-slate-200 text-sm leading-relaxed mb-6">
-              No. 1, Dominion Building, EAUED Underpass Bridge, Olooro Road Junction, Oyo–Ogbomoso Expressway, Oyo State.
+              {factory.address}
             </p>
             <div className="p-6 bg-slate-50 group-hover:bg-white/10 font-mono text-xs space-y-2 text-slate-800 group-hover:text-white">
-              <div><strong className="text-slate-900 group-hover:text-white">Yard Direct:</strong> 08101831076</div>
-              <div><strong className="text-slate-900 group-hover:text-white">Operations:</strong> High-Volume Pole &amp; Block Batching</div>
-              <div><strong className="text-slate-900 group-hover:text-white">Logistics:</strong> HIAB &amp; Flatbed Dispatch Bay</div>
+              <div>
+                <strong className="text-slate-900 group-hover:text-white">Yard Direct:</strong>{" "}
+                <a href={`tel:${factory.yardDirect}`} className="hover:underline">
+                  {factory.yardDirect}
+                </a>
+              </div>
+              <div>
+                <strong className="text-slate-900 group-hover:text-white">Operations:</strong>{" "}
+                {factory.operations}
+              </div>
+              <div>
+                <strong className="text-slate-900 group-hover:text-white">Logistics:</strong>{" "}
+                {factory.logistics}
+              </div>
             </div>
           </div>
-
         </div>
 
         {/* Embedded Map */}
@@ -83,7 +112,6 @@ export default function MapLocationSection() {
             title="Dominion Integrated Electrical & Engineering Limited Location"
           />
         </div>
-
       </div>
     </section>
   );

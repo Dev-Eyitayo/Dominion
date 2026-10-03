@@ -1,6 +1,4 @@
-"use client";
 
-import { SparklesIcon } from "@heroicons/react/24/outline";
 
 export default function WhyChooseUs() {
   const pillars = [

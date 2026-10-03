@@ -2,7 +2,7 @@
 
 import SafeImage from "@/components/SafeImage";
 import Link from "next/link";
-import { ShieldCheckIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { ShieldCheckIcon } from "@heroicons/react/24/outline";
 
 export default function AboutSection() {
   const coreValues = [

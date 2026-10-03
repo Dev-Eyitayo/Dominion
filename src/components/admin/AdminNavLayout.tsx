@@ -69,6 +69,19 @@ const inboundNavItems = [
   },
 ];
 
+const settingsNavItems = [
+  {
+    label: "Homepage & Contacts",
+    href: "/admin/settings",
+    exact: false,
+    icon: (
+      <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+      </svg>
+    ),
+  },
+];
+
 export default function AdminNavLayout({ admin, children }: AdminNavProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -109,6 +122,7 @@ export default function AdminNavLayout({ admin, children }: AdminNavProps) {
     if (pathname.startsWith("/admin/manufacturing")) return "Manufacturing Catalog";
     if (pathname.startsWith("/admin/services")) return "Engineering Services";
     if (pathname.startsWith("/admin/inquiries")) return "Client RFQs & Inbound Leads";
+    if (pathname.startsWith("/admin/settings")) return "Homepage & Contact Settings";
     return "Admin Portal";
   };
 
@@ -310,6 +324,38 @@ export default function AdminNavLayout({ admin, children }: AdminNavProps) {
               </div>
               <nav className="space-y-1.5">
                 {inboundNavItems.map((item) => {
+                  const active = isItemActive(item);
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMobileOpen(false)}
+                      className={`group relative flex items-center gap-3.5 px-3.5 py-2.5 rounded-sm text-xs font-medium transition-all ${
+                        active
+                          ? "bg-[#15234E] text-white font-semibold shadow-xs"
+                          : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                      }`}
+                    >
+                      {active && (
+                        <span className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-amber-400 rounded-r-xs" />
+                      )}
+                      <span className={active ? "text-amber-400" : "text-slate-400 group-hover:text-slate-600"}>
+                        {item.icon}
+                      </span>
+                      <span>{item.label}</span>
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
+
+            {/* Site Configuration Section */}
+            <div>
+              <div className="px-3 pb-2.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                Settings
+              </div>
+              <nav className="space-y-1.5">
+                {settingsNavItems.map((item) => {
                   const active = isItemActive(item);
                   return (
                     <Link
