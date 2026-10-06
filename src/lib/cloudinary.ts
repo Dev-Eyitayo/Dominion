@@ -75,15 +75,34 @@ export async function uploadToCloudinary(
     }
   }
 
-  // Production Cloudinary stream upload
+  // Production Cloudinary stream upload with automatic size, format & quality compression
+  const isVideo = file.type?.startsWith("video/") || file.name?.match(/\.(mp4|webm|mov|mkv)$/i);
+
   return new Promise((resolve, reject) => {
+    const uploadOptions: Record<string, any> = {
+      folder,
+      resource_type: isVideo ? "video" : "auto",
+      quality: "auto:good",
+      fetch_format: "auto",
+    };
+
+    if (!isVideo) {
+      // Bounding max resolution for images to 1920x1920 limit without upscaling
+      uploadOptions.transformation = [
+        { width: 1920, height: 1920, crop: "limit" },
+        { quality: "auto:good" },
+      ];
+    } else {
+      // Video optimization: compress bitrate, max width 1920
+      uploadOptions.transformation = [
+        { width: 1920, crop: "limit" },
+        { quality: "auto" },
+        { video_codec: "auto" },
+      ];
+    }
+
     const uploadStream = cloudinary.uploader.upload_stream(
-      {
-        folder,
-        resource_type: "auto",
-        quality: "auto",
-        fetch_format: "auto",
-      },
+      uploadOptions,
       (error, result: UploadApiResponse | undefined) => {
         if (error || !result) {
           return reject(error || new Error("Cloudinary upload returned undefined response"));

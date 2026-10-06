@@ -10,14 +10,29 @@ import ConsultationForm from "@/components/ConsultationForm";
 import MapLocationSection from "@/components/MapLocationSection";
 import TestimonialSection from "@/components/TestimonialSection";
 import { ShieldCheckIcon, EyeIcon } from "@heroicons/react/24/outline";
-import { getHeroSlides, getFacilityContacts } from "@/lib/settings";
+import { getHeroSlides, getFacilityContacts, getWhyChooseUs, getAboutContent } from "@/lib/settings";
+import { db } from "@/db";
+import { engineeringServices } from "@/db/schema";
+import { asc } from "drizzle-orm";
 
 export const revalidate = 60; // ISR 60s
 
 export default async function Home() {
-  const [heroSlides, facilityContacts] = await Promise.all([
+  let dbServices: any[] = [];
+  try {
+    dbServices = await db
+      .select()
+      .from(engineeringServices)
+      .orderBy(asc(engineeringServices.displayOrder));
+  } catch (e) {
+    console.error("Failed to load services on landing page, fallback to defaults", e);
+  }
+
+  const [heroSlides, facilityContacts, whyChooseUs, aboutContent] = await Promise.all([
     getHeroSlides(),
     getFacilityContacts(),
+    getWhyChooseUs(),
+    getAboutContent(),
   ]);
 
   return (
@@ -41,10 +56,10 @@ export default async function Home() {
                 <EyeIcon className="w-7 h-7" />
               </div>
               <h3 className="text-[#0F2B82] font-bold text-xs sm:text-sm uppercase tracking-widest font-mono mb-3">
-                Our Vision
+                {aboutContent.visionTag || "Our Vision"}
               </h3>
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-md">
-                To become one of Nigeria&apos;s foremost engineering and infrastructure development corporations recognized for excellence, innovation, and sustainable solutions.
+                {aboutContent.visionDesc || "To become one of Nigeria's foremost engineering and infrastructure development corporations recognized for excellence, innovation, and sustainable solutions."}
               </p>
             </div>
 
@@ -54,10 +69,10 @@ export default async function Home() {
                 <ShieldCheckIcon className="w-7 h-7" />
               </div>
               <h3 className="text-[#0F2B82] font-bold text-xs sm:text-sm uppercase tracking-widest font-mono mb-3">
-                Our Mission
+                {aboutContent.missionTag || "Our Mission"}
               </h3>
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-md">
-                To deliver top-tier engineering, construction, electrical, renewable energy, and precast services that consistently exceed expectations while upholding safety, integrity, and professionalism.
+                {aboutContent.missionDesc || "To deliver top-tier engineering, construction, electrical, renewable energy, and precast services that consistently exceed expectations while upholding safety, integrity, and professionalism."}
               </p>
             </div>
           </div>
@@ -65,13 +80,13 @@ export default async function Home() {
       </section>
 
       {/* Core Services Section */}
-      <ServicesSection />
+      <ServicesSection services={dbServices.length > 0 ? dbServices : undefined} />
 
       {/* Precast & Concrete Production Section */}
       {/* <PrecastSection /> */}
 
       {/* Why Choose Dominion Matrix */}
-      <WhyChooseUs />
+      <WhyChooseUs data={whyChooseUs} />
 
       {/* 5-Step Engineering Process Framework */}
       {/* <ProcessSection /> */}

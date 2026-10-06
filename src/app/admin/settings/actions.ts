@@ -36,19 +36,26 @@ export async function updateHeroSlidesAction(
     return { success: false, error: "At least one hero slide is required." };
   }
 
-  // Handle image uploads for slides
+  // Handle media (image/video) uploads for slides
   for (let i = 0; i < slides.length; i++) {
     const file = formData.get(`slideImage_${i}`) as File | null;
     if (file && file.size > 0) {
       try {
+        const isVideo = file.type?.startsWith("video/") || Boolean(file.name?.match(/\.(mp4|webm|mov|mkv)$/i));
         const uploadResult = await uploadToCloudinary(file, "dominion/hero");
         slides[i].img = uploadResult.url;
         slides[i].imgPublicId = uploadResult.publicId;
+        slides[i].mediaType = isVideo ? "video" : "image";
+        if (isVideo) {
+          slides[i].videoUrl = uploadResult.url;
+        } else {
+          slides[i].videoUrl = undefined;
+        }
       } catch (err) {
-        console.error(`Error uploading image for slide ${i + 1}:`, err);
+        console.error(`Error uploading media for slide ${i + 1}:`, err);
         return {
           success: false,
-          error: `Could not upload image for slide ${i + 1}. Please try again.`,
+          error: `Could not upload media file for slide ${i + 1}. Please try again.`,
         };
       }
     }
@@ -120,3 +127,37 @@ export async function updateFacilityContactsAction(
     return { success: false, error: "Could not save facility details. Please try again." };
   }
 }
+
+export async function updateWhyChooseUsAction(
+  data: any
+): Promise<SettingsActionResult> {
+  const admin = await getCurrentAdmin();
+  if (!admin) {
+    return { success: false, error: "Your session has expired. Please sign in again." };
+  }
+
+  try {
+    await db
+      .insert(siteSettings)
+      .values({
+        key: "why_choose_us",
+        value: data,
+        updatedAt: new Date(),
+      })
+      .onConflictDoUpdate({
+        target: siteSettings.key,
+        set: {
+          value: data,
+          updatedAt: new Date(),
+        },
+      });
+
+    revalidatePath("/");
+    revalidatePath("/admin/settings");
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating why choose us:", error);
+    return { success: false, error: "Could not save why choose us settings. Please try again." };
+  }
+}
+

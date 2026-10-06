@@ -1,28 +1,14 @@
+import { WhyChooseUsData, DEFAULT_WHY_CHOOSE_US } from "@/lib/settings/types";
 
+interface WhyChooseUsProps {
+  data?: WhyChooseUsData;
+}
 
-export default function WhyChooseUs() {
-  const pillars = [
-    {
-      num: "01",
-      title: "Multidisciplinary Engineering Team",
-      desc: "Licensed civil, structural, and electrical engineers working in synergy with certified project managers to ensure rigorous technical precision on every build.",
-    },
-    {
-      num: "02",
-      title: "Strict Quality Assurance (QA/QC)",
-      desc: "All concrete batches, electrical schematics, and structural foundations undergo strict laboratory and field load testing before project deployment.",
-    },
-    {
-      num: "03",
-      title: "Certified Health, Safety & HSE Standard",
-      desc: "Zero-compromise safety culture on active sites. We maintain full statutory compliance with NSITF, ITF, and standard occupational health protocols.",
-    },
-    {
-      num: "04",
-      title: "On-Budget & Timely Project Delivery",
-      desc: "Transparent Bills of Quantities (BoQ), realistic milestones, and proactive supply chain management to eliminate contractor delays and unexpected costs.",
-    },
-  ];
+export default function WhyChooseUs({ data = DEFAULT_WHY_CHOOSE_US }: WhyChooseUsProps) {
+  const currentData = data || DEFAULT_WHY_CHOOSE_US;
+  const pillars = currentData.pillars && currentData.pillars.length > 0
+    ? currentData.pillars
+    : DEFAULT_WHY_CHOOSE_US.pillars;
 
   return (
     <section id="why-us" className="py-24 bg-white border-t border-slate-100 relative">
@@ -31,13 +17,13 @@ export default function WhyChooseUs() {
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
           <div className="inline-block bg-[#0F2B82] text-white font-mono text-xs uppercase tracking-widest px-6 py-2.5 font-bold mb-4">
-            THE DOMINION ADVANTAGE
+            {currentData.badge || "THE DOMINION ADVANTAGE"}
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 uppercase tracking-tight">
-            Why Choose Us
+            {currentData.title || "Why Choose Us"}
           </h2>
           <p className="text-slate-600 text-sm sm:text-base mt-3">
-            We combine technical ingenuity with proven operational discipline to deliver enduring infrastructure for government agencies, corporate institutions, and private developers.
+            {currentData.subtitle || "We combine technical ingenuity with proven operational discipline to deliver enduring infrastructure for government agencies, corporate institutions, and private developers."}
           </p>
         </div>
 
@@ -45,7 +31,7 @@ export default function WhyChooseUs() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {pillars.map((pillar, idx) => (
             <div
-              key={idx}
+              key={pillar.num || idx}
               className="p-8 bg-white border border-slate-200 hover:border-[#0F2B82] transition-colors"
             >
               <div className="w-10 h-10 rounded-full bg-slate-100 text-[#0F2B82] flex items-center justify-center font-mono font-bold text-xs mb-4">

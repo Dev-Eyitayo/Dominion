@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/solid";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 export default function Footer() {
   const [showTopBtn, setShowTopBtn] = useState(false);
@@ -29,7 +30,7 @@ export default function Footer() {
             
             {/* Col 1: Identity & Profile */}
             <div className="lg:col-span-4">
-              <div className="bg-white inline-block p-1.5 mb-6">
+              <div className="bg-white inline-block p-1.5 mb-4">
                 <Image
                   src="/logo.png"
                   alt="Dominion Integrated Electrical & Engineering Limited"
@@ -38,6 +39,9 @@ export default function Footer() {
                   className="h-10 w-auto object-contain"
                 />
               </div>
+              <p className="text-xs font-semibold text-[#D99B26] tracking-wide uppercase mb-3">
+                Building Excellence, Powering the Future
+              </p>
               <p className="text-xs text-slate-400 leading-relaxed mb-6">
                 Dominion Integrated Electrical &amp; Engineering Limited (RC: 1655029) is a multidisciplinary engineering and infrastructure development firm operating across Nigeria.
               </p>
@@ -159,6 +163,9 @@ export default function Footer() {
           </div>
         </div>
       </footer>
+
+      {/* Floating WhatsApp Action Button */}
+      <WhatsAppButton />
 
       {/* Floating Dancing Back-To-Top Button (only shows when scrolled) */}
       <button

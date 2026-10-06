@@ -138,10 +138,10 @@ export default async function ServicesPage() {
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="inline-block bg-[#0F2B82] text-white font-mono text-xs uppercase tracking-widest px-4 py-1.5 font-bold mb-4 border border-white/20">
-            CORE ENGINEERING PRACTICES
+            OUR CORE AREAS
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-4 uppercase">
-            Integrated Multidisciplinary Services
+            Multidisciplinary Services
           </h1>
           <p className="text-slate-200 text-base sm:text-lg max-w-3xl leading-relaxed">
             From foundation civil earthworks and high-voltage grid substations to commercial solar mini-grids, precision precasting, and equipment leasing.

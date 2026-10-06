@@ -6,10 +6,12 @@ import { toast } from "sonner";
 import {
   HeroSlide,
   FacilityContactData,
+  WhyChooseUsData,
 } from "@/lib/settings/types";
 import {
   updateHeroSlidesAction,
   updateFacilityContactsAction,
+  updateWhyChooseUsAction,
 } from "./actions";
 import {
   PlusIcon,
@@ -17,19 +19,22 @@ import {
   PhotoIcon,
   RectangleStackIcon,
   BuildingOffice2Icon,
+  ShieldCheckIcon,
   CheckIcon,
 } from "@heroicons/react/24/outline";
 
 interface SettingsClientProps {
   initialHeroSlides: HeroSlide[];
   initialFacilityContacts: FacilityContactData;
+  initialWhyChooseUs: WhyChooseUsData;
 }
 
 export default function SettingsClient({
   initialHeroSlides,
   initialFacilityContacts,
+  initialWhyChooseUs,
 }: SettingsClientProps) {
-  const [activeTab, setActiveTab] = useState<"hero" | "facilities">("hero");
+  const [activeTab, setActiveTab] = useState<"hero" | "facilities" | "why_us">("hero");
 
   // Hero Slides State
   const [slides, setSlides] = useState<HeroSlide[]>(initialHeroSlides);
@@ -40,6 +45,35 @@ export default function SettingsClient({
   // Facility Contacts State
   const [facilities, setFacilities] = useState<FacilityContactData>(initialFacilityContacts);
   const [isSavingFacilities, setIsSavingFacilities] = useState(false);
+
+  // Why Choose Us State
+  const [whyUs, setWhyUs] = useState<WhyChooseUsData>(initialWhyChooseUs);
+  const [isSavingWhyUs, setIsSavingWhyUs] = useState(false);
+
+  // Handle why us pillar change
+  const handlePillarChange = (index: number, field: "title" | "desc", value: string) => {
+    const updated = [...whyUs.pillars];
+    updated[index] = { ...updated[index], [field]: value };
+    setWhyUs({ ...whyUs, pillars: updated });
+  };
+
+  // Save Why Choose Us
+  const handleSaveWhyUs = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSavingWhyUs(true);
+    try {
+      const result = await updateWhyChooseUsAction(whyUs);
+      if (result.success) {
+        toast.success("Why Choose Us section updated on homepage!");
+      } else {
+        toast.error(result.error || "Could not save settings.");
+      }
+    } catch {
+      toast.error("An error occurred while saving.");
+    } finally {
+      setIsSavingWhyUs(false);
+    }
+  };
 
   // Handle slide field change
   const handleSlideChange = (index: number, field: keyof HeroSlide, value: string) => {
@@ -169,6 +203,19 @@ export default function SettingsClient({
           <BuildingOffice2Icon className="w-4 h-4" />
           <span>Facilities &amp; Contact Hotlines</span>
         </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab("why_us")}
+          className={`px-4 py-2.5 text-xs font-semibold rounded-t-sm transition-colors border-b-2 flex items-center gap-2 cursor-pointer ${
+            activeTab === "why_us"
+              ? "border-[#0F2B82] text-[#0F2B82] bg-blue-50/40"
+              : "border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+          }`}
+        >
+          <ShieldCheckIcon className="w-4 h-4" />
+          <span>Why Choose Us Pillars</span>
+        </button>
       </div>
 
       {/* Tab 1: Hero Carousel Slides */}
@@ -200,30 +247,51 @@ export default function SettingsClient({
                   </div>
 
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    {/* Left: Background Photo Preview & Uploader */}
+                    {/* Left: Background Media Preview & Uploader */}
                     <div className="lg:col-span-4 space-y-3">
-                      <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-slate-700">
-                        Slide Background Image
-                      </label>
-                      <div className="relative h-44 w-full rounded-sm border border-slate-200 overflow-hidden bg-slate-900">
-                        <Image
-                          src={previewSrc}
-                          alt={`Hero Slide ${idx + 1}`}
-                          fill
-                          sizes="(max-width: 1024px) 100vw, 30vw"
-                          className="object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="flex items-center justify-between">
+                        <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-slate-700">
+                          Slide Background Media
+                        </label>
+                        <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 bg-slate-100 text-slate-600 border border-slate-200">
+                          {slide.mediaType === "video" || previewSrc.match(/\.(mp4|webm|mov|mkv)$/i) || previewSrc.startsWith("data:video") ? "Video" : "Image"}
+                        </span>
                       </div>
+
+                      <div className="relative h-44 w-full rounded-sm border border-slate-200 overflow-hidden bg-slate-900">
+                        {slide.mediaType === "video" || previewSrc.match(/\.(mp4|webm|mov|mkv)$/i) || previewSrc.startsWith("data:video") ? (
+                          <video
+                            src={previewSrc}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <Image
+                            src={previewSrc}
+                            alt={`Hero Slide ${idx + 1}`}
+                            fill
+                            sizes="(max-width: 1024px) 100vw, 30vw"
+                            className="object-cover"
+                          />
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+                      </div>
+
                       <label className="block">
-                        <span className="sr-only">Choose background photo</span>
+                        <span className="sr-only">Choose background media</span>
                         <input
                           type="file"
-                          accept="image/*"
+                          accept="image/*,video/*"
                           onChange={(e) => handleSlidePhotoSelect(idx, e.target.files?.[0] || null)}
                           className="block w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-sm file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-[#0F2B82] hover:file:bg-blue-100 cursor-pointer"
                         />
                       </label>
+                      <p className="text-[10px] text-slate-400">
+                        Supports JPEG, PNG, WebP images and MP4, WebM videos.
+                      </p>
                     </div>
 
                     {/* Right: Headlines & Content */}
@@ -562,6 +630,102 @@ export default function SettingsClient({
               className="bg-[#0F2B82] hover:bg-[#070D1F] disabled:bg-slate-400 text-white text-xs font-bold uppercase tracking-widest px-6 py-2.5 rounded-sm transition cursor-pointer"
             >
               {isSavingFacilities ? "Saving Facility Details..." : "Save Contact & Facility Details"}
+            </button>
+          </div>
+        </form>
+      )}
+
+      {/* Tab 3: Why Choose Us Section */}
+      {activeTab === "why_us" && (
+        <form onSubmit={handleSaveWhyUs} className="space-y-6">
+          <div className="bg-white border border-slate-200 rounded-sm p-6 space-y-4">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-100 pb-3">
+              Section Header &amp; Subtitle
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1 text-[11px]">
+                  Category Badge
+                </label>
+                <input
+                  type="text"
+                  value={whyUs.badge}
+                  onChange={(e) => setWhyUs({ ...whyUs, badge: e.target.value })}
+                  className="w-full bg-slate-50 border border-slate-300 px-3 py-2 text-xs text-slate-900 rounded-sm focus:outline-none focus:border-[#0F2B82] font-mono"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1 text-[11px]">
+                  Section Title
+                </label>
+                <input
+                  type="text"
+                  value={whyUs.title}
+                  onChange={(e) => setWhyUs({ ...whyUs, title: e.target.value })}
+                  className="w-full bg-slate-50 border border-slate-300 px-3 py-2 text-xs text-slate-900 rounded-sm focus:outline-none focus:border-[#0F2B82] font-bold"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1 text-[11px]">
+                Section Description Subtitle
+              </label>
+              <textarea
+                rows={2}
+                value={whyUs.subtitle}
+                onChange={(e) => setWhyUs({ ...whyUs, subtitle: e.target.value })}
+                className="w-full bg-slate-50 border border-slate-300 px-3 py-2 text-xs text-slate-900 rounded-sm focus:outline-none focus:border-[#0F2B82] leading-relaxed"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {whyUs.pillars.map((pillar, idx) => (
+              <div key={pillar.num} className="bg-white border border-slate-200 rounded-sm p-5 space-y-3">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                  <span className="w-8 h-8 rounded-full bg-slate-100 text-[#0F2B82] font-mono font-bold text-xs flex items-center justify-center">
+                    {pillar.num}
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">Advantage Pillar #{idx + 1}</span>
+                </div>
+
+                <div>
+                  <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1 text-[11px]">
+                    Pillar Headline
+                  </label>
+                  <input
+                    type="text"
+                    value={pillar.title}
+                    onChange={(e) => handlePillarChange(idx, "title", e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-300 px-3 py-1.5 text-xs text-slate-900 rounded-sm focus:outline-none focus:border-[#0F2B82] font-bold"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1 text-[11px]">
+                    Pillar Detail
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={pillar.desc}
+                    onChange={(e) => handlePillarChange(idx, "desc", e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-300 px-3 py-1.5 text-xs text-slate-900 rounded-sm focus:outline-none focus:border-[#0F2B82] leading-relaxed"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex justify-end pt-2">
+            <button
+              type="submit"
+              disabled={isSavingWhyUs}
+              className="bg-[#0F2B82] hover:bg-[#070D1F] disabled:bg-slate-400 text-white text-xs font-bold uppercase tracking-widest px-6 py-2.5 rounded-sm transition cursor-pointer"
+            >
+              {isSavingWhyUs ? "Saving Advantages..." : "Save Why Choose Us Pillars"}
             </button>
           </div>
         </form>

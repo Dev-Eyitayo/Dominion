@@ -9,6 +9,8 @@ export const siteSettings = pgTable("site_settings", {
 export interface HeroSlide {
   img: string;
   imgPublicId?: string;
+  mediaType?: "image" | "video";
+  videoUrl?: string;
   title: string;
   highlight: string;
   subtitle: string;

@@ -230,11 +230,15 @@ const jsonLd = {
   ]
 };
 
-export default function RootLayout({
+import { getNavigationData } from "@/lib/settings";
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const navigationData = await getNavigationData();
+
   return (
     <html
       lang="en"
@@ -258,7 +262,7 @@ export default function RootLayout({
             },
           }}
         />
-        <PublicShell>{children}</PublicShell>
+        <PublicShell navigationData={navigationData}>{children}</PublicShell>
       </body>
     </html>
   );

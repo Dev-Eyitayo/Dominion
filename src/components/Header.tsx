@@ -5,13 +5,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bars3Icon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import {
+  NavigationData,
+  DEFAULT_ABOUT_NAV_ITEMS,
+  DEFAULT_SERVICES_NAV_ITEMS,
+  DEFAULT_MANUFACTURING_NAV_ITEMS,
+} from "@/lib/settings/types";
 
-export default function Header() {
+interface HeaderProps {
+  navigationData?: NavigationData;
+}
+
+export default function Header({ navigationData }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileManufacturingOpen, setMobileManufacturingOpen] = useState(false);
   const pathname = usePathname();
+
+  const aboutItems = navigationData?.aboutItems || DEFAULT_ABOUT_NAV_ITEMS;
+  const servicesItems = navigationData?.servicesItems || DEFAULT_SERVICES_NAV_ITEMS;
+  const manufacturingItems = navigationData?.manufacturingItems || DEFAULT_MANUFACTURING_NAV_ITEMS;
 
   const isActive = (path: string) => {
     if (path === "/") {
@@ -63,21 +77,30 @@ export default function Header() {
                 <span>About Us</span>
                 <ChevronDownIcon className={`w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 ${isActive("/about") ? "text-[#0F2B82]" : "text-slate-400 group-hover:text-[#0F2B82]"}`} />
               </Link>
-              <div className="absolute top-full left-0 w-52 bg-white border border-slate-200 shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <Link href="/about#overview" className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]">
-                  Company Overview
-                </Link>
-                <Link href="/about#vision" className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]">
-                  Vision & Values
-                </Link>
-                <Link href="/about#team" className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]">
-                  Leadership & Team
-                </Link>
-                <Link href="/about#quality" className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]">
-                  Quality & Safety
-                </Link>
+              <div className="absolute top-full left-0 w-52 bg-white border border-slate-200 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                {aboutItems.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </div>
             </div>
+
+            {/* Our Team Link */}
+            <Link
+              href="/team"
+              className={`text-xs uppercase tracking-widest font-bold py-1 relative transition-colors ${
+                isActive("/team")
+                  ? "text-[#0F2B82] after:absolute after:-bottom-1 after:left-0 after:right-0 after:h-[2px] after:bg-[#0F2B82]"
+                  : "text-slate-700 hover:text-[#0F2B82]"
+              }`}
+            >
+              Our Team
+            </Link>
 
             {/* Services Dropdown */}
             <div className="relative group py-2">
@@ -92,22 +115,16 @@ export default function Header() {
                 <span>Services</span>
                 <ChevronDownIcon className={`w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 ${isActive("/services") ? "text-[#0F2B82]" : "text-slate-400 group-hover:text-[#0F2B82]"}`} />
               </Link>
-              <div className="absolute top-full left-0 w-56 bg-white border border-slate-200 shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <Link href="/services#civil" className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]">
-                  Civil & Building
-                </Link>
-                <Link href="/services#electrical" className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]">
-                  Electrical & Power
-                </Link>
-                <Link href="/services#solar" className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]">
-                  Solar & Renewable IT
-                </Link>
-                <Link href="/services#consultancy" className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]">
-                  Consultancy & BoQ
-                </Link>
-                <Link href="/services#leasing" className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]">
-                  Equipment Leasing
-                </Link>
+              <div className="absolute top-full left-0 w-56 bg-white border border-slate-200 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                {servicesItems.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </div>
             </div>
 
@@ -124,19 +141,16 @@ export default function Header() {
                 <span>Manufacturing</span>
                 <ChevronDownIcon className={`w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 ${isActive("/manufacturing") ? "text-[#0F2B82]" : "text-slate-400 group-hover:text-[#0F2B82]"}`} />
               </Link>
-              <div className="absolute top-full left-0 w-56 bg-white border border-slate-200 shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <Link href="/manufacturing#poles" className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]">
-                  Electric Poles (LT & HT)
-                </Link>
-                <Link href="/manufacturing#blocks" className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]">
-                  Stay Blocks & Slabs
-                </Link>
-                <Link href="/manufacturing#kerbs" className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]">
-                  Road Kerbs & Channels
-                </Link>
-                <Link href="/manufacturing#custom" className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]">
-                  Custom Precast Moulds
-                </Link>
+              <div className="absolute top-full left-0 w-56 bg-white border border-slate-200 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                {manufacturingItems.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0F2B82]"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </div>
             </div>
 
@@ -237,37 +251,32 @@ export default function Header() {
             </div>
             {mobileAboutOpen && (
               <div className="pl-4 pr-2 py-1 space-y-1 border-l-2 border-[#0F2B82]/20 ml-3 my-1">
-                <Link
-                  href="/about#overview"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
-                >
-                  Company Overview
-                </Link>
-                <Link
-                  href="/about#vision"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
-                >
-                  Vision & Values
-                </Link>
-                <Link
-                  href="/about#team"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
-                >
-                  Leadership & Team
-                </Link>
-                <Link
-                  href="/about#quality"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
-                >
-                  Quality & Safety
-                </Link>
+                {aboutItems.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </div>
             )}
           </div>
+
+          {/* Our Team */}
+          <Link
+            href="/team"
+            onClick={() => setMobileMenuOpen(false)}
+            className={`block text-xs uppercase tracking-widest font-bold px-3 py-2.5 rounded transition-colors ${
+              isActive("/team")
+                ? "bg-blue-50 text-[#0F2B82] border-l-4 border-[#0F2B82] font-extrabold"
+                : "text-slate-800 hover:text-[#0F2B82] hover:bg-slate-50"
+            }`}
+          >
+            Our Team
+          </Link>
 
           {/* Services (with dropdown submenu) */}
           <div>
@@ -292,41 +301,16 @@ export default function Header() {
             </div>
             {mobileServicesOpen && (
               <div className="pl-4 pr-2 py-1 space-y-1 border-l-2 border-[#0F2B82]/20 ml-3 my-1">
-                <Link
-                  href="/services#civil"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
-                >
-                  Civil & Building
-                </Link>
-                <Link
-                  href="/services#electrical"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
-                >
-                  Electrical & Power
-                </Link>
-                <Link
-                  href="/services#solar"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
-                >
-                  Solar & Renewable IT
-                </Link>
-                <Link
-                  href="/services#consultancy"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
-                >
-                  Consultancy & BoQ
-                </Link>
-                <Link
-                  href="/services#leasing"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
-                >
-                  Equipment Leasing
-                </Link>
+                {servicesItems.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </div>
             )}
           </div>
@@ -354,34 +338,16 @@ export default function Header() {
             </div>
             {mobileManufacturingOpen && (
               <div className="pl-4 pr-2 py-1 space-y-1 border-l-2 border-[#0F2B82]/20 ml-3 my-1">
-                <Link
-                  href="/manufacturing#poles"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
-                >
-                  Electric Poles (LT & HT)
-                </Link>
-                <Link
-                  href="/manufacturing#blocks"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
-                >
-                  Stay Blocks & Slabs
-                </Link>
-                <Link
-                  href="/manufacturing#kerbs"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
-                >
-                  Road Kerbs & Channels
-                </Link>
-                <Link
-                  href="/manufacturing#custom"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
-                >
-                  Custom Precast Moulds
-                </Link>
+                {manufacturingItems.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block text-xs font-semibold text-slate-600 hover:text-[#0F2B82] py-2 px-2.5 rounded hover:bg-slate-50"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </div>
             )}
           </div>
