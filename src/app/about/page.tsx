@@ -195,7 +195,7 @@ export default async function AboutPage() {
               href="/team"
               className="inline-flex items-center gap-2 bg-[#0F2B82] hover:bg-[#070D1F] text-white font-bold text-xs uppercase tracking-widest px-5 py-3 transition-colors shrink-0"
             >
-              <span>View Full Team Cadre</span>
+              <span>View Full Team</span>
               <ChevronRightIcon className="w-4 h-4 stroke-[2.5]" />
             </Link>
           </div>

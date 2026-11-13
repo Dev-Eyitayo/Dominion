@@ -12,7 +12,8 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:reset": "npx tsx src/db/reset.ts",
-    "db:seed": "npx tsx src/db/seedMaster.ts"
+    "db:seed": "npx tsx src/db/seedMaster.ts",
+    "db:seed:services": "npx tsx src/db/seedServices.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

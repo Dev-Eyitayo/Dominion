@@ -45,10 +45,10 @@ export default function Footer() {
               <p className="text-xs text-slate-400 leading-relaxed mb-6">
                 Dominion Integrated Electrical &amp; Engineering Limited (RC: 1655029) is a multidisciplinary engineering and infrastructure development firm operating across Nigeria.
               </p>
-              <div className="text-xs font-mono text-[#D99B26] space-y-1">
+              {/* <div className="text-xs font-mono text-[#D99B26] space-y-1">
                 <div>RC NUMBER: 1655029</div>
                 <div>SMEDAN: SUID-9142-6143-5422-0697</div>
-              </div>
+              </div> */}
             </div>
 
             {/* Col 2: Navigation Links */}
